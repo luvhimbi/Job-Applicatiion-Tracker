@@ -1,0 +1,44 @@
+.status-bar {
+  height: 6px;
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+}
+
+/* Custom Status Colors matching your logic */
+.bg-applied { background-color: #0d6efd !important; }
+.bg-interview { background-color: #0dcaf0 !important; }
+.bg-offer { background-color: #198754 !important; }
+.bg-rejected { background-color: #6c757d !important; }
+
+.hover-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Badge styling */
+.badge.bg-applied { background-color: #e7f1ff; color: #0d6efd; }
+.badge.bg-interview { background-color: #e0f7fa; color: #017b8b; }
+.badge.bg-offer { background-color: #e8f5e9; color: #1b5e20; }
+.badge.bg-rejected { background-color: #f5f5f5; color: #616161; }
+.card {
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  transform: translateX(3px);
+  box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+}
+
+/* Make the compass icon pulse slightly to draw attention */
+.bi-compass {
+  animation: rotate-compass 10s infinite linear;
+}
+
+@keyframes rotate-compass {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

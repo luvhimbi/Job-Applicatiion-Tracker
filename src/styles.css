@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --accent: #2563eb;
+  --input-bg: #f9fafb;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background-color: #ffffff;
+  margin: 0;
+}
+
+/* Split Layout Container */
+.auth-split-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* The Content Area */
+.auth-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 10%;
+}
+
+/* The Visual Sidebar */
+.auth-sidebar {
+  flex: 1;
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  color: white;
+}
+
+@media (max-width: 992px) {
+  .auth-sidebar { display: none; }
+}
+
+/* Professional Input Styling */
+.form-floating > .form-control-minimal {
+  border: none;
+  border-bottom: 2px solid #e5e7eb;
+  border-radius: 0;
+  padding: 1.5rem 0.5rem 0.5rem 0;
+  background: transparent;
+  font-size: 1.1rem;
+}
+
+.form-control-minimal:focus {
+  outline: none;
+  box-shadow: none;
+  border-bottom-color: var(--text-main);
+}
+
+.btn-auth-submit {
+  background: var(--text-main);
+  color: white;
+  padding: 14px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  margin-top: 2rem;
+  transition: all 0.2s ease;
+}
+
+.btn-auth-submit:hover:not(:disabled) {
+  background: #374151;
+}
+
+.btn-auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

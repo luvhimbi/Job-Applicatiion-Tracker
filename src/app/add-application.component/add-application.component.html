@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-white py-3">
+      <h5 class="mb-0 text-primary fw-bold">Track New Application</h5>
+    </div>
+    <div class="mb-4 p-3 bg-light rounded-3 border-start border-4 border-primary">
+      <h6 class="fw-bold mb-1"><i class="bi bi-info-circle-fill me-2 text-primary"></i>How it works</h6>
+      <p class="text-muted small mb-0">
+        Enter the details of a job you've just applied for. Once saved, it will appear in your <strong>Pipeline Dashboard</strong> where you can track interview stages, manage recruiter contacts, and take notes.
+      </p>
+    </div>
+    <div class="card-body p-4">
+      <div *ngIf="isSuccess" class="alert alert-success border-0 shadow-sm d-flex align-items-center animate__animated animate__fadeIn" role="alert">
+        <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+        <div>Application saved successfully!</div>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger border-0 shadow-sm d-flex align-items-center animate__animated animate__fadeIn" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+        <div>{{ errorMessage }}</div>
+      </div>
+      <form #applicationForm="ngForm" (ngSubmit)="addApplication(applicationForm)" novalidate>
+        <div class="row g-4">
+
+          <div class="col-md-3">
+            <label class="form-label small fw-bold text-secondary">Company Name</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light"><i class="bi bi-building"></i></span>
+              <input type="text" class="form-control" name="companyName"
+                     required minlength="2" pattern=".*\S.*"
+                     [(ngModel)]="newApplication.companyName" #companyName="ngModel"
+                     [class.is-invalid]="companyName.invalid && (companyName.touched || applicationForm.submitted)">
+            </div>
+            <div class="invalid-feedback" *ngIf="companyName.errors?.['required']">Company is required.</div>
+            <div class="invalid-feedback" *ngIf="companyName.errors?.['pattern']">Cannot be empty spaces.</div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label small fw-bold text-secondary">Job Title</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light"><i class="bi bi-briefcase"></i></span>
+              <input type="text" class="form-control" name="jobTitle"
+                     required minlength="3" pattern=".*\S.*"
+                     [(ngModel)]="newApplication.jobTitle" #jobTitle="ngModel"
+                     [class.is-invalid]="jobTitle.invalid && (jobTitle.touched || applicationForm.submitted)">
+            </div>
+            <div class="invalid-feedback">Please provide a valid job title (min 3 chars).</div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label small fw-bold text-secondary">Location</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light"><i class="bi bi-geo-alt"></i></span>
+              <input type="text" class="form-control" name="location"
+                     required pattern=".*\S.*"
+                     [(ngModel)]="newApplication.location" #location="ngModel"
+                     [class.is-invalid]="location.invalid && (location.touched || applicationForm.submitted)">
+            </div>
+            <div class="invalid-feedback">Location is required.</div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label small fw-bold text-secondary">Current Status</label>
+            <select class="form-select" name="status" required
+                    [(ngModel)]="newApplication.status" #status="ngModel"
+                    [class.is-invalid]="status.invalid && (status.touched || applicationForm.submitted)">
+              <option value="" disabled>Select Status</option>
+              <option value="Applied">Applied</option>
+              <option value="Interview">Interview</option>
+              <option value="Offer">Offer</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+            <div class="invalid-feedback">Please select a status.</div>
+          </div>
+
+          <div class="col-12 text-end mt-4">
+            <button class="btn btn-primary px-5 py-2 fw-bold shadow-sm" type="submit"
+                    [disabled]="applicationForm.invalid || isSubmitting">
+              <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+              {{ isSubmitting ? 'Saving...' : 'Add Application' }}
+            </button>
+          </div>
+
+        </div>
+      </form>
+

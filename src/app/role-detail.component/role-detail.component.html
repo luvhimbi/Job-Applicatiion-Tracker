@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<div class="container py-5" *ngIf="selectedRole">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+
+      <div class="mb-5 pb-4 border-bottom">
+        <a routerLink="/career-paths" class="lux-link-muted mb-4 d-inline-block">
+          <i class="bi bi-arrow-left me-2"></i>BACK TO DIRECTORY
+        </a>
+        <h1 class="display-4 fw-bold mb-3">{{ selectedRole.title }}</h1>
+        <div class="d-flex gap-3">
+          <span class="badge bg-dark px-3 py-2">{{ selectedRole.industry }}</span>
+          <span class="text-muted"><i class="bi bi-cash-stack me-2"></i>{{ selectedRole.salaryRange }} Average</span>
+        </div>
+      </div>
+
+      <div class="row g-5">
+        <div class="col-md-7">
+          <section class="mb-5">
+            <h5 class="fw-bold mb-3">What does a {{ selectedRole.title }} do?</h5>
+            <p class="text-secondary lh-lg">{{ selectedRole.dayInLife }}</p>
+          </section>
+
+          <section>
+            <h5 class="fw-bold mb-3">Who should apply?</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item border-0 ps-0 d-flex align-items-start" *ngFor="let point of selectedRole.whoShouldApply">
+                <i class="bi bi-check2-circle text-primary me-3 mt-1"></i>
+                <span>{{ point }}</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="col-md-5">
+          <div class="bg-light p-4 rounded-4 shadow-sm border">
+            <h6 class="fw-bold mb-4">Core Skillset</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge bg-white text-dark border px-3 py-2 rounded-pill" *ngFor="let skill of selectedRole.skillsNeeded">
+                {{ skill }}
+              </span>
+            </div>
+
+            <hr class="my-4">
+
+            <h6 class="fw-bold mb-3">Typical Employers in SA</h6>
+            <p class="small text-muted">Banks (FNB, Absa), Retailers (Shoprite, Takealot), and Fintech Startups.</p>
+            <button class="btn btn-dark w-100 rounded-pill mt-3 py-2" routerLink="/discovery">
+              Find These Jobs
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

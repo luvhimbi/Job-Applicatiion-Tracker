@@ -1,0 +1,62 @@
+<div class="auth-split-container">
+  <div class="auth-content">
+    <div class="mb-5">
+      <a routerLink="/" class="text-decoration-none text-dark fw-bold fs-4">JobTracker.</a>
+    </div>
+
+    <div style="max-width: 400px;">
+      <h1 class="fw-bold mb-2">Create Account</h1>
+      <div *ngIf="isSuccess" class="mt-4 p-3 border-start border-success border-4 bg-success-subtle text-success small animate__animated animate__fadeIn">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        Account created successfully! Redirecting...
+      </div>
+
+      <div *ngIf="errorMessage" class="mt-4 p-3 border-start border-danger border-4 bg-danger-subtle text-danger small animate__animated animate__fadeIn">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ errorMessage }}
+      </div>
+
+      <form #regForm="ngForm" (ngSubmit)="regForm.valid && register()" novalidate>
+        <div class="form-floating mb-4">
+          <input type="text" class="form-control form-control-minimal w-100" id="fullName"
+                 placeholder="Full Name" [(ngModel)]="displayName" name="displayName" required #nameField="ngModel">
+          <label for="fullName" class="ps-0 text-muted">Full Name</label>
+        </div>
+
+        <div class="form-floating mb-4">
+          <input type="email" class="form-control form-control-minimal w-100" id="email"
+                 placeholder="name@example.com" [(ngModel)]="email" name="email" required email #emailField="ngModel">
+          <label for="email" class="ps-0 text-muted">Email Address</label>
+        </div>
+
+        <div class="form-floating mb-4">
+          <input type="password" class="form-control form-control-minimal w-100" id="password"
+                 placeholder="Password" [(ngModel)]="password" name="password" required minlength="8" #passField="ngModel">
+          <label for="password" class="ps-0 text-muted">Password (8+ characters)</label>
+        </div>
+
+        <button type="submit" [disabled]="regForm.invalid || isLoading" class="btn-auth-submit w-100 d-flex align-items-center justify-content-center">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ isLoading ? 'Creating account...' : 'Create Account' }}
+        </button>
+      </form>
+
+      <p class="mt-4 text-muted small text-center">
+        Already have an account? <a routerLink="/login" class="text-dark fw-bold text-decoration-none">Sign in</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="auth-sidebar" style="background: #f3f4f6; color: #111827;">
+    <div class="p-5 bg-white shadow-lg rounded-4">
+      <p class="fs-4 italic">"JobTracker changed the way I look for work. I applied to 15 companies in 2 days and kept everything perfectly organized."</p>
+      <div class="d-flex align-items-center mt-4">
+        <div class="rounded-circle bg-secondary me-3" style="width: 40px; height: 40px;"></div>
+        <div>
+          <p class="fw-bold mb-0">Alex Rivera</p>
+          <p class="small text-muted mb-0">Software Engineer at Vercel</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

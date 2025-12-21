@@ -1,0 +1,55 @@
+/* Clean Active State */
+.nav-link {
+  font-weight: 500;
+  color: #6c757d !important;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important;
+  background-color: #f8f9fa;
+}
+
+.active-link {
+  color: #0d6efd !important;
+  background-color: #e7f1ff;
+}
+
+/* Brand subtle animation */
+.navbar-brand:hover .brand-icon {
+  transform: rotate(-10deg);
+  transition: transform 0.2s ease;
+}
+
+/* Sticky shadow refinement */
+.sticky-top {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}.x-small {
+   font-size: 0.75rem;
+ }
+
+.dropdown-item:active {
+  background-color: #f8f9fa;
+  color: #0d6efd;
+}
+
+.dropdown-toggle::after {
+  display: none; /* Removes the default arrow for a cleaner look */
+}
+
+.nav-link.dropdown-toggle:hover {
+  background-color: #efefef !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Add a subtle indicator that it's a dropdown */
+.nav-link.dropdown-toggle::after {
+  content: '\F282'; /* Bootstrap Icon Chevron Down */
+  font-family: 'bootstrap-icons';
+  border: none;
+  font-size: 0.6rem;
+  margin-left: 5px;
+  vertical-align: middle;
+}s

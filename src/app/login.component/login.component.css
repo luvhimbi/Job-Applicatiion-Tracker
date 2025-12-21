@@ -1,0 +1,36 @@
+/* Custom typography */
+.fw-extra-bold { font-weight: 800; }
+
+.auth-wrapper {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+/* Bigger, cleaner inputs */
+.input-group-lg > .form-control,
+.input-group-lg > .input-group-text {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+}
+
+/* Rounding and Shadows */
+.rounded-5 { border-radius: 2rem !important; }
+.transition-all { transition: all 0.3s ease; }
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2) !important;
+}
+
+/* Improved Validation States */
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+.auth-sidebar{
+
+  color: white;
+}

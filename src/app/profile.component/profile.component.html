@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="mb-5">
+        <h1 class="fw-bold h2">Account Settings</h1>
+        <p class="text-muted">Manage your profile information and account security.</p>
+      </div>
+
+      <div *ngIf="authService.userProfile$ | async as user" class="animate__animated animate__fadeIn">
+
+        <section class="mb-5 pb-5 border-bottom">
+          <div class="row">
+            <div class="col-md-4">
+              <h5 class="fw-semibold">Personal Information</h5>
+              <p class="small text-muted">This will be displayed on your dashboard.</p>
+            </div>
+            <div class="col-md-8">
+              <div class="card border-0 shadow-sm p-4">
+                <div class="mb-4 d-flex align-items-center gap-3">
+                  <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 64px; height: 64px; font-size: 1.5rem;">
+                    {{ user.displayName?.charAt(0)?.toUpperCase() || '?' }}
+                  </div>
+                  <div>
+                    <button class="btn btn-outline-secondary btn-sm rounded-pill">Change Avatar</button>
+                  </div>
+                </div>
+
+                <form (ngSubmit)="updateProfile()">
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold">Full Name</label>
+                    <input type="text" class="form-control border-light-subtle bg-light" [(ngModel)]="userData.displayName" name="displayName">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold">Email Address</label>
+                    <input type="email" class="form-control border-light-subtle bg-light-subtle" [value]="user.email" disabled>
+                    <div class="form-text">Email cannot be changed.</div>
+                  </div>
+
+                  <div class="mt-4">
+                    <button type="submit" class="btn btn-dark px-4 py-2 fw-semibold" [disabled]="isUpdating">
+                      <span *ngIf="isUpdating" class="spinner-border spinner-border-sm me-2"></span>
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+
+                <div *ngIf="successMessage" class="alert alert-success mt-3 border-0 small">
+                  {{ successMessage }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="row text-danger">
+            <div class="col-md-4">
+              <h5 class="fw-semibold">Danger Zone</h5>
+              <p class="small opacity-75">Irreversible actions for your account.</p>
+            </div>
+            <div class="col-md-8">
+              <div class="card border-danger border-opacity-25 p-4 bg-danger bg-opacity-10">
+                <h6 class="fw-bold">Delete Account</h6>
+                <p class="small mb-3">Once you delete your account, all your job applications will be permanently removed.</p>
+                <button class="btn btn-danger btn-sm w-fit px-4 fw-bold">Delete My Account</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</div>

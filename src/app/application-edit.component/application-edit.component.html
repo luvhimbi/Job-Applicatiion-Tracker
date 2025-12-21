@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+
+<div class="container py-5" *ngIf="app">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Edit Application</h2>
+        <div class="gap-2 d-flex">
+          <a [routerLink]="['/application', app.id]" class="btn btn-light rounded-pill px-4">Cancel</a>
+          <button class="btn btn-primary rounded-pill px-4" (click)="updateApp()" [disabled]="isSaving">
+            <span *ngIf="isSaving" class="spinner-border spinner-border-sm me-2"></span>
+            Update Application
+          </button>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Company Name</label>
+              <input type="text" class="form-control" [(ngModel)]="app.companyName">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Job Title</label>
+              <input type="text" class="form-control" [(ngModel)]="app.jobTitle">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Current Status</label>
+              <select class="form-select" [(ngModel)]="app.status">
+                <option *ngFor="let s of statuses" [value]="s">{{s}}</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-muted">Location</label>
+              <input type="text" class="form-control" [(ngModel)]="app.location" placeholder="e.g. Sandton, JHB">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+          <label class="form-label small fw-bold text-muted">Interview Notes & Prep</label>
+          <textarea class="form-control" rows="8" [(ngModel)]="app.notes" placeholder="Detailed notes..."></textarea>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3 border-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0">Hiring Contacts</h5>
+            <button class="btn btn-sm btn-outline-dark rounded-pill" (click)="addContact()">
+              <i class="bi bi-plus-lg me-1"></i> Add
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-4">
+          <div class="row g-3">
+            <div class="col-12" *ngFor="let contact of app.contacts; let i = index">
+              <div class="p-3 bg-light rounded-3 position-relative border">
+                <button (click)="removeContact(i)" class="btn-close position-absolute end-0 top-0 m-2" style="font-size: 0.6rem;"></button>
+                <div class="row g-2">
+                  <div class="col-md-4"><input type="text" class="form-control form-control-sm" [(ngModel)]="contact.name" placeholder="Name"></div>
+                  <div class="col-md-4"><input type="text" class="form-control form-control-sm" [(ngModel)]="contact.role" placeholder="Role"></div>
+                  <div class="col-md-4"><input type="text" class="form-control form-control-sm" [(ngModel)]="contact.email" placeholder="Email/LinkedIn"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

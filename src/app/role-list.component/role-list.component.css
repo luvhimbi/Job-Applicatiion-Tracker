@@ -1,0 +1,37 @@
+.lux-card {
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+}
+
+.lux-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+}
+
+.lux-search-group {
+  background: #fff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #eee;
+}
+
+.filter-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-container::-webkit-scrollbar {
+  display: none;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ls-1 { letter-spacing: 1px; }

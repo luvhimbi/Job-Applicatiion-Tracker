@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+
+<div class="container py-5">
+  <div class="text-center mb-5 animate__animated animate__fadeIn">
+    <span class="badge rounded-pill bg-light text-dark mb-3 px-3 py-2 border text-uppercase ls-1">Career Intelligence</span>
+    <h1 class="display-5 fw-bold text-dark">Explore Career Paths</h1>
+    <p class="text-muted mx-auto" style="max-width: 600px;">
+      Deep dives into the most sought-after roles in the South African market.
+    </p>
+  </div>
+
+  <div class="row g-4" *ngIf="filteredRoles$ | async as roles; else loading">
+
+    <div class="col-md-6 col-lg-4" *ngFor="let role of roles">
+      <div class="card h-100 border-0 shadow-sm lux-card" [routerLink]="['/career-paths', role.id]">
+        <div class="card-body p-4">
+          <span class="small text-primary fw-bold text-uppercase ls-1">{{ role.industry }}</span>
+          <h4 class="fw-bold mt-2 mb-3 text-dark">{{ role.title }}</h4>
+          <p class="text-muted small mb-4 line-clamp-3">{{ role.description }}</p>
+          <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top">
+            <span class="fw-bold small">{{ role.salaryRange }} <small class="text-muted">p.a.</small></span>
+            <i class="bi bi-arrow-right-circle fs-4 text-dark"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="roles.length === 0" class="col-12 text-center py-5">
+      <i class="bi bi-search text-muted fs-1 mb-3 d-block"></i>
+      <h5 class="text-muted">No paths found for your search.</h5>
+      <button class="btn btn-link text-decoration-none" (click)="setIndustry('All')">Clear Filters</button>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="text-center py-5">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+</div>
