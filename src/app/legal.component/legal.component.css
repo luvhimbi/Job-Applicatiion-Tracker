@@ -1,0 +1,26 @@
+
+/* Styling the toggle buttons */
+.nav-pills .nav-link {
+  color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #212529 !important; /* Dark theme matching your buttons */
+  color: white !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+  letter-spacing: -0.3px;
+}
+
+/* Enhancing readability */
+p, li {
+  font-size: 0.85rem !important;
+  line-height: 1.8;
+}
+
+section {
+  padding-bottom: 1rem;
+}

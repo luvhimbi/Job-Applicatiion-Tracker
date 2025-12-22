@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import {
   Auth,
   authState,
-  createUserWithEmailAndPassword,
+  createUserWithEmailAndPassword, deleteUser,
   signInWithEmailAndPassword,
   signOut
 } from '@angular/fire/auth';
@@ -11,7 +11,7 @@ import {
   doc,
   setDoc,
   docData,
-  updateDoc
+  updateDoc, collection, query, where, getDocs, writeBatch, deleteDoc
 } from '@angular/fire/firestore';
 import { Observable, of, from } from 'rxjs';
 import { switchMap, shareReplay } from 'rxjs/operators';
@@ -90,5 +90,41 @@ export class AuthService {
       doc(this.firestore, 'users', currentUser.uid);
 
     await updateDoc(userRef, { displayName: newName });
+  }
+
+  async deleteAccount(): Promise<void> {
+    const currentUser = this.auth.currentUser;
+    if (!currentUser) throw new Error('No authenticated user found.');
+
+    const uid = currentUser.uid;
+
+    try {
+      // 1. Delete all user's job applications first
+      const appsRef = collection(this.firestore, 'applications');
+      const q = query(appsRef, where('userId', '==', uid));
+      const querySnapshot = await getDocs(q);
+
+      const batch = writeBatch(this.firestore);
+      querySnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+      await batch.commit();
+
+      // 2. Delete the user profile document
+      const userRef = doc(this.firestore, 'users', uid);
+      await deleteDoc(userRef);
+
+      // 3. Delete the Firebase Auth user
+      // Note: Firebase may require "Recent Login" to perform this.
+      // If it fails, the user needs to log in again and retry.
+      await deleteUser(currentUser);
+
+    } catch (error: any) {
+      console.error('Delete Account Error:', error);
+      if (error.code === 'auth/requires-recent-login') {
+        throw new Error('For security reasons, please log in again before deleting your account.');
+      }
+      throw error;
+    }
   }
 }

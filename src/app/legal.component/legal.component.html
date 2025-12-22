@@ -1,0 +1,90 @@
+
+
+<div class="min-vh-100" style="background-color: #f8f9fa;">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+
+        <div class="mb-5 text-center">
+          <h1 class="fw-bold text-dark mb-2">Legal Center</h1>
+          <p class="text-muted small">Last updated: December 22, 2025</p>
+        </div>
+
+        <div class="card border border-light-subtle shadow-sm rounded-4 bg-white overflow-hidden">
+          <div class="card-body p-4 p-md-5">
+
+            <ul class="nav nav-pills nav-fill mb-5 bg-light p-1 rounded-3 border border-secondary-subtle">
+              <li class="nav-item">
+                <button class="nav-link fw-bold small py-2" [class.active]="view === 'privacy'" (click)="view = 'privacy'">
+                  Privacy Policy
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link fw-bold small py-2" [class.active]="view === 'terms'" (click)="view = 'terms'">
+                  Terms of Service
+                </button>
+              </li>
+            </ul>
+
+            <div *ngIf="view === 'privacy'" class="animate__animated animate__fadeIn">
+              <section class="mb-5">
+                <h4 class="fw-bold text-dark mb-3">1. Information We Collect</h4>
+                <p class="text-muted small lh-lg">
+                  To provide the best job tracking experience, we collect information you provide directly to us:
+                </p>
+                <ul class="text-muted small lh-lg">
+                  <li><strong>Account Data:</strong> Name, email address, and authentication credentials via Google/Firebase.</li>
+                  <li><strong>Application Data:</strong> Job titles, company names, interview dates, and notes you manually enter.</li>
+                  <li><strong>Usage Data:</strong> How you interact with the dashboard to help us improve performance.</li>
+                </ul>
+              </section>
+
+              <section class="mb-5">
+                <h4 class="fw-bold text-dark mb-3">2. How We Use Your Information</h4>
+                <p class="text-muted small lh-lg">
+                  We use your data solely to manage your job application pipeline. We do <strong>not</strong> sell your personal data to third parties or recruiters. Your data is stored securely using Firebase and Firestore.
+                </p>
+              </section>
+
+              <section class="mb-5">
+                <h4 class="fw-bold text-dark mb-3">3. Data Security</h4>
+                <p class="text-muted small lh-lg">
+                  We implement industry-standard security measures provided by Google Cloud Platform to protect your data from unauthorized access, alteration, or disclosure.
+                </p>
+              </section>
+            </div>
+
+            <div *ngIf="view === 'terms'" class="animate__animated animate__fadeIn">
+              <section class="mb-5">
+                <h4 class="fw-bold text-dark mb-3">1. Acceptance of Terms</h4>
+                <p class="text-muted small lh-lg">
+                  By accessing JobTracker, you agree to be bound by these Terms of Service. If you do not agree, please do not use the service.
+                </p>
+              </section>
+
+              <section class="mb-5">
+                <h4 class="fw-bold text-dark mb-3">2. User Responsibilities</h4>
+                <p class="text-muted small lh-lg">
+                  You are responsible for maintaining the confidentiality of your account credentials. JobTracker is a tool for personal organization; we do not guarantee employment or job placement through the use of our app.
+                </p>
+              </section>
+
+              <section class="mb-5">
+                <h4 class="fw-bold text-dark mb-3">3. Termination</h4>
+                <p class="text-muted small lh-lg">
+                  You may delete your account at any time via the Profile Settings. We reserve the right to suspend accounts that violate our security protocols.
+                </p>
+              </section>
+            </div>
+
+          </div>
+
+          <div class="card-footer bg-light border-top border-light-subtle p-4 text-center">
+            <p class="text-muted small mb-0">Questions? Contact us at <span class="text-primary fw-bold">support@jobtracker.io</span></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

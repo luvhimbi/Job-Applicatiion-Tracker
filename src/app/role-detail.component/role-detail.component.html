@@ -1,53 +1,65 @@
-<app-navbar></app-navbar>
-<div class="container py-5" *ngIf="selectedRole">
+
+
+<div class="container py-5 mt-5" *ngIf="!selectedRole">
+  <div class="text-center py-5">
+    <div class="spinner-border spinner-border-sm text-dark" role="status">
+      <span class="visually-hidden">Loading career details...</span>
+    </div>
+    <p class="text-muted small mt-3">Loading career insights...</p>
+  </div>
+</div>
+
+<div class="container py-4" *ngIf="selectedRole">
   <div class="row justify-content-center">
-    <div class="col-lg-9">
-
-      <div class="mb-5 pb-4 border-bottom">
-        <a routerLink="/career-paths" class="lux-link-muted mb-4 d-inline-block">
-          <i class="bi bi-arrow-left me-2"></i>BACK TO DIRECTORY
-        </a>
-        <h1 class="display-4 fw-bold mb-3">{{ selectedRole.title }}</h1>
-        <div class="d-flex gap-3">
-          <span class="badge bg-dark px-3 py-2">{{ selectedRole.industry }}</span>
-          <span class="text-muted"><i class="bi bi-cash-stack me-2"></i>{{ selectedRole.salaryRange }} Average</span>
-        </div>
+    <div class="col-lg-8"> <div class="mb-4 pb-4 border-bottom">
+      <a routerLink="/career-paths" class="text-decoration-none text-muted small fw-bold mb-3 d-inline-block">
+        <i class="bi bi-arrow-left me-1"></i> BACK TO DIRECTORY
+      </a>
+      <h2 class="fw-bold mb-2">{{ selectedRole.title }}</h2>
+      <div class="d-flex align-items-center gap-3">
+        <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 0.7rem;">{{ selectedRole.industry }}</span>
+        <span class="text-muted small"><i class="bi bi-cash-stack me-1"></i>{{ selectedRole.salaryRange }} Average p.a.</span>
       </div>
+    </div>
 
-      <div class="row g-5">
+      <div class="row g-4">
         <div class="col-md-7">
-          <section class="mb-5">
-            <h5 class="fw-bold mb-3">What does a {{ selectedRole.title }} do?</h5>
-            <p class="text-secondary lh-lg">{{ selectedRole.dayInLife }}</p>
+          <section class="mb-4">
+            <h6 class="fw-bold mb-3">Role Overview</h6>
+            <p class="text-muted" style="font-size: 0.9rem; line-height: 1.6;">{{ selectedRole.dayInLife }}</p>
           </section>
 
           <section>
-            <h5 class="fw-bold mb-3">Who should apply?</h5>
+            <h6 class="fw-bold mb-3">Is this for you?</h6>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item border-0 ps-0 d-flex align-items-start" *ngFor="let point of selectedRole.whoShouldApply">
-                <i class="bi bi-check2-circle text-primary me-3 mt-1"></i>
-                <span>{{ point }}</span>
+              <li class="list-group-item border-0 ps-0 d-flex align-items-start bg-transparent py-2" *ngFor="let point of selectedRole.whoShouldApply">
+                <i class="bi bi-check2 text-primary me-2 mt-1"></i>
+                <span class="small text-secondary">{{ point }}</span>
               </li>
             </ul>
           </section>
         </div>
 
         <div class="col-md-5">
-          <div class="bg-light p-4 rounded-4 shadow-sm border">
-            <h6 class="fw-bold mb-4">Core Skillset</h6>
-            <div class="d-flex flex-wrap gap-2">
-              <span class="badge bg-white text-dark border px-3 py-2 rounded-pill" *ngFor="let skill of selectedRole.skillsNeeded">
+          <div class="bg-light p-4 rounded-3 border-0 shadow-sm">
+            <h6 class="fw-bold mb-3" style="font-size: 0.85rem;">Core Skillset</h6>
+            <div class="d-flex flex-wrap gap-2 mb-4">
+              <span class="badge bg-white text-dark border px-2 py-1 rounded-1 fw-medium"
+                    style="font-size: 0.7rem;"
+                    *ngFor="let skill of selectedRole.skillsNeeded">
                 {{ skill }}
               </span>
             </div>
 
-            <hr class="my-4">
-
-            <h6 class="fw-bold mb-3">Typical Employers in SA</h6>
-            <p class="small text-muted">Banks (FNB, Absa), Retailers (Shoprite, Takealot), and Fintech Startups.</p>
-            <button class="btn btn-dark w-100 rounded-pill mt-3 py-2" routerLink="/discovery">
-              Find These Jobs
-            </button>
+            <div class="pt-3 border-top">
+              <h6 class="fw-bold mb-2" style="font-size: 0.85rem;">Typical Employers in SA</h6>
+              <p class="text-muted mb-4" style="font-size: 0.75rem;">
+                Top Banks (FNB, Standard Bank), Major Retailers (Shoprite, Takealot), and Fintech hubs.
+              </p>
+              <button class="btn btn-dark w-100 rounded-2 py-2 small fw-bold" routerLink="/JobSource">
+                Find Open Positions
+              </button>
+            </div>
           </div>
         </div>
       </div>

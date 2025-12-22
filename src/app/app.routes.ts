@@ -11,6 +11,10 @@ import {ApplicationEditComponent} from './application-edit.component/application
 import {RoleListComponent} from './role-list.component/role-list.component';
 import {RoleDetailComponent} from './role-detail.component/role-detail.component';
 import {SeedCareersComponent} from './seed-careers.component';
+import {NotFoundComponent} from './not-found.component/not-found.component';
+import {LegalComponent} from './legal.component/legal.component';
+import {HelpCenterComponent} from './help-center.component/help-center.component';
+import {HelpArticleComponent} from './help-article.component/help-article.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -23,7 +27,21 @@ export const routes: Routes = [
   { path: 'application/edit/:id', component: ApplicationEditComponent, canActivate: [AuthGuard] }
   ,{ path: 'career-paths', component: RoleListComponent },
   { path: 'career-paths/:id', component: RoleDetailComponent },
-
+  {
+    path: 'legal',
+    component: LegalComponent,
+    title: 'Legal - JobTracker'
+  },
+  {
+    path: 'help',
+    component: HelpCenterComponent,
+    title: 'Help Center - JobTracker'
+  },
+  {
+    path: 'help/:slug',
+    component: HelpArticleComponent
+  },
   // Utility (Database Seeder - remove in production)
   { path: 'admin/seed', component: SeedCareersComponent },
+  { path: '**', component: NotFoundComponent }
 ];

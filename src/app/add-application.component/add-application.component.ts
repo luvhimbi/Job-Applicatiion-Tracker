@@ -1,31 +1,37 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import {FormsModule, NgForm} from '@angular/forms';
-import {JobApplicationService} from '../services/job-application.service';
-import {JobApplication} from '../models/job-application.model';
-import {NgIf} from '@angular/common';
-import {NavbarComponent} from '../navbar.component/navbar.component';
-
+import { Component, EventEmitter, Output, inject, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { JobApplicationService } from '../services/job-application.service';
+import { JobApplication } from '../models/job-application.model';
+import { NgIf } from '@angular/common';
+import { NavbarComponent } from '../navbar.component/navbar.component';
+import { Router } from '@angular/router'; // 👈 Inject Router
+import Swal from 'sweetalert2'; // 👈 Inject SweetAlert2
 
 @Component({
   selector: 'app-add-application',
-  imports: [
-    FormsModule,
-    NgIf,
-    NavbarComponent
-  ],
+  standalone: true,
+  imports: [FormsModule, NgIf, NavbarComponent],
   templateUrl: './add-application.component.html'
 })
-export class AddApplicationComponent {
+export class AddApplicationComponent implements OnInit {
+  private applicationService = inject(JobApplicationService);
+  private router = inject(Router);
+
   newApplication: JobApplication = this.getResetObject();
 
-  // UI State
+  // UI States
+  isLoading = true; // 👈 Page initialization state
   isSubmitting = false;
-  isSuccess = false;
-  errorMessage = '';
+  showInfo = false;
 
   @Output() applicationAdded = new EventEmitter<void>();
 
-  constructor(private applicationService: JobApplicationService) {}
+  ngOnInit() {
+    // Simulate a brief load for smooth UI entry
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 600);
+  }
 
   private getResetObject(): JobApplication {
     return {
@@ -43,27 +49,35 @@ export class AddApplicationComponent {
     if (form.invalid) return;
 
     this.isSubmitting = true;
-    this.errorMessage = '';
-    this.isSuccess = false;
 
     try {
       await this.applicationService.create(this.newApplication);
 
-      this.isSuccess = true;
-      this.applicationAdded.emit();
-      form.resetForm(this.getResetObject());
+      // SweetAlert Success Toast
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true
+      });
 
-      // Auto-hide success message after 4 seconds
-      setTimeout(() => this.isSuccess = false, 4000);
+      await Toast.fire({
+        icon: 'success',
+        title: 'Application tracked!'
+      });
+
+      this.applicationAdded.emit();
+      this.router.navigate(['/']); // 👈 Redirect to Dashboard
 
     } catch (error: any) {
-      console.error('Error adding application:', error);
-      // Map Firebase errors to human-readable messages
-      if (error.code === 'permission-denied') {
-        this.errorMessage = "Access denied. Please check if you're logged in.";
-      } else {
-        this.errorMessage = "Something went wrong. Please try again later.";
-      }
+      console.error('Error:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to save application. Please try again.',
+        icon: 'error',
+        confirmButtonColor: '#212529'
+      });
     } finally {
       this.isSubmitting = false;
     }
