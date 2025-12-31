@@ -1,72 +1,74 @@
-
-
-<div class="container py-5" *ngIf="app">
+<div class="container py-4" *ngIf="app">
   <div class="row justify-content-center">
-    <div class="col-lg-8">
+    <div class="col-lg-7">
 
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold mb-0">Edit Application</h2>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem; letter-spacing: -0.01em;">Edit Application</h5>
         <div class="gap-2 d-flex">
-          <a [routerLink]="['/application', app.id]" class="btn btn-light rounded-pill px-4">Cancel</a>
-          <button class="btn btn-primary rounded-pill px-4" (click)="updateApp()" [disabled]="isSaving">
-            <span *ngIf="isSaving" class="spinner-border spinner-border-sm me-2"></span>
+          <a [routerLink]="['/application', app.id]" class="btn btn-light rounded-pill px-3 py-1 x-small border">Cancel</a>
+          <button class="btn btn-primary rounded-pill px-3 py-1 x-small shadow-sm" (click)="updateApp()" [disabled]="isSaving">
+            <span *ngIf="isSaving" class="spinner-border spinner-border-sm me-1" style="width: 10px; height: 10px;"></span>
             Update Application
           </button>
         </div>
       </div>
 
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body p-4">
-          <div class="row g-3">
+      <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body p-3">
+          <div class="row g-2">
             <div class="col-md-6">
-              <label class="form-label small fw-bold text-muted">Company Name</label>
-              <input type="text" class="form-control" [(ngModel)]="app.companyName">
+              <label class="x-small fw-bold text-muted mb-1 d-block">Company Name</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="app.companyName">
             </div>
             <div class="col-md-6">
-              <label class="form-label small fw-bold text-muted">Job Title</label>
-              <input type="text" class="form-control" [(ngModel)]="app.jobTitle">
+              <label class="x-small fw-bold text-muted mb-1 d-block">Job Title</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="app.jobTitle">
             </div>
             <div class="col-md-6">
-              <label class="form-label small fw-bold text-muted">Current Status</label>
-              <select class="form-select" [(ngModel)]="app.status">
+              <label class="x-small fw-bold text-muted mb-1 d-block">Current Status</label>
+              <select class="form-select form-select-sm" [(ngModel)]="app.status">
                 <option *ngFor="let s of statuses" [value]="s">{{s}}</option>
               </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label small fw-bold text-muted">Location</label>
-              <input type="text" class="form-control" [(ngModel)]="app.location" placeholder="e.g. Sandton, JHB">
+              <label class="x-small fw-bold text-muted mb-1 d-block">Location</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="app.location" placeholder="e.g. Sandton, JHB">
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body p-4">
-          <label class="form-label small fw-bold text-muted">Interview Notes & Prep</label>
-          <textarea class="form-control" rows="8" [(ngModel)]="app.notes" placeholder="Detailed notes..."></textarea>
+      <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body p-3">
+          <label class="x-small fw-bold text-muted mb-1 d-block">Interview Notes & Prep</label>
+          <textarea class="form-control form-control-sm" rows="6" [(ngModel)]="app.notes" placeholder="Detailed notes..." style="font-size: 0.8rem;"></textarea>
         </div>
       </div>
 
       <div class="card border-0 shadow-sm">
-        <div class="card-header bg-white py-3 border-0">
+        <div class="card-header bg-white py-2 px-3 border-0 border-bottom">
           <div class="d-flex justify-content-between align-items-center">
-            <h5 class="fw-bold mb-0">Hiring Contacts</h5>
-            <button class="btn btn-sm btn-outline-dark rounded-pill" (click)="addContact()">
-              <i class="bi bi-plus-lg me-1"></i> Add
+            <h6 class="fw-bold mb-0" style="font-size: 0.85rem;">Hiring Contacts</h6>
+            <button class="btn btn-xs btn-outline-dark rounded-pill px-2 py-0" (click)="addContact()" style="font-size: 0.65rem;">
+              <i class="bi bi-plus-lg"></i> Add
             </button>
           </div>
         </div>
-        <div class="card-body p-4">
-          <div class="row g-3">
+        <div class="card-body p-3">
+          <div class="row g-2">
             <div class="col-12" *ngFor="let contact of app.contacts; let i = index">
-              <div class="p-3 bg-light rounded-3 position-relative border">
-                <button (click)="removeContact(i)" class="btn-close position-absolute end-0 top-0 m-2" style="font-size: 0.6rem;"></button>
-                <div class="row g-2">
-                  <div class="col-md-4"><input type="text" class="form-control form-control-sm" [(ngModel)]="contact.name" placeholder="Name"></div>
-                  <div class="col-md-4"><input type="text" class="form-control form-control-sm" [(ngModel)]="contact.role" placeholder="Role"></div>
-                  <div class="col-md-4"><input type="text" class="form-control form-control-sm" [(ngModel)]="contact.email" placeholder="Email/LinkedIn"></div>
+              <div class="p-2 bg-light rounded-3 position-relative border">
+                <button (click)="removeContact(i)" class="btn-close position-absolute end-0 top-0 m-1" style="font-size: 0.5rem;"></button>
+                <div class="row g-2 mt-1">
+                  <div class="col-md-4"><input type="text" class="form-control form-control-xs" [(ngModel)]="contact.name" placeholder="Name"></div>
+                  <div class="col-md-4"><input type="text" class="form-control form-control-xs" [(ngModel)]="contact.role" placeholder="Role"></div>
+                  <div class="col-md-4"><input type="text" class="form-control form-control-xs" [(ngModel)]="contact.email" placeholder="Email/LinkedIn"></div>
                 </div>
               </div>
+            </div>
+
+            <div *ngIf="!app.contacts?.length" class="text-center py-2">
+              <p class="text-muted mb-0" style="font-size: 0.7rem;">No contacts added.</p>
             </div>
           </div>
         </div>

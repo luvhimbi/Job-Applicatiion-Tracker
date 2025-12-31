@@ -1,0 +1,30 @@
+/* Helper for the smallest text level */
+.x-small {
+  font-size: 0.7rem !important;
+}
+
+/* Status Badge Font Reduction */
+.status-badge {
+  font-size: 0.6rem !important;
+  letter-spacing: 0.05rem;
+}
+
+/* Tightening the Note Sidebar */
+.border-start.border-4 {
+  border-left-width: 3px !important;
+}
+
+/* Button font sizing */
+.btn {
+  font-size: 0.8rem;
+}
+
+/* Reducing icon sizes for a cleaner look */
+.bi {
+  vertical-align: -0.125em;
+}
+
+/* Ensure the layout doesn't feel too wide on desktop after shrinking text */
+.col-lg-7 {
+  max-width: 650px;
+}

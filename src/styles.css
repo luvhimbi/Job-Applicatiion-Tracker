@@ -5,6 +5,14 @@
   --text-muted: #6b7280;
   --accent: #2563eb;
   --input-bg: #f9fafb;
+
+  /* Global Typography Scaling */
+  --base-font-size: 14px; /* Reduced from default 16px */
+  --h1: 1.75rem;
+  --h2: 1.5rem;
+  --h5: 1.1rem;
+  --small: 0.8rem;
+  --x-small: 0.7rem;
 }
 
 body {
@@ -12,69 +20,95 @@ body {
   color: var(--text-main);
   background-color: #ffffff;
   margin: 0;
+  font-size: var(--base-font-size);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Split Layout Container */
-.auth-split-container {
-  display: flex;
-  min-height: 100vh;
+/* --- Global Elements Resizing --- */
+
+h1, .h1 { font-size: var(--h1); letter-spacing: -0.02em; }
+h2, .h2 { font-size: var(--h2); letter-spacing: -0.01em; }
+h5, .h5 { font-size: var(--h5); }
+
+p { font-size: 0.95rem; }
+
+.small, small {
+  font-size: var(--small) !important;
 }
 
-/* The Content Area */
-.auth-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 80px 10%;
+.x-small {
+  font-size: var(--x-small) !important;
 }
 
-/* The Visual Sidebar */
-.auth-sidebar {
-  flex: 1;
-  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 80px;
-  color: white;
+/* --- Navbar Adjustments --- */
+
+.navbar-brand {
+  font-size: 0.9rem !important;
 }
 
-@media (max-width: 992px) {
-  .auth-sidebar { display: none; }
+.nav-link {
+  font-size: 0.8rem; /* Smaller navigation text */
+  font-weight: 500;
+  padding: 0.5rem 0.75rem !important;
 }
 
-/* Professional Input Styling */
+.dropdown-item {
+  font-size: 0.8rem;
+}
+
+/* --- Card & Component Adjustments --- */
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.status-badge {
+  font-size: 0.65rem !important;
+  padding: 0.25rem 0.6rem !important;
+}
+
+.btn {
+  font-size: 0.8rem; /* Smaller buttons */
+  padding: 0.5rem 1rem;
+}
+
+.btn-sm {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.75rem;
+}
+
+/* --- Form Adjustments --- */
+
+.form-control, .form-select {
+  font-size: 0.85rem;
+}
+
 .form-floating > .form-control-minimal {
-  border: none;
-  border-bottom: 2px solid #e5e7eb;
-  border-radius: 0;
-  padding: 1.5rem 0.5rem 0.5rem 0;
-  background: transparent;
-  font-size: 1.1rem;
+  font-size: 0.95rem; /* Slightly larger for inputs but still compact */
+  padding: 1.2rem 0.5rem 0.4rem 0;
 }
 
-.form-control-minimal:focus {
-  outline: none;
-  box-shadow: none;
-  border-bottom-color: var(--text-main);
+.form-floating > label {
+  font-size: 0.8rem;
 }
 
-.btn-auth-submit {
-  background: var(--text-main);
-  color: white;
-  padding: 14px;
-  border-radius: 6px;
-  border: none;
-  font-weight: 600;
-  margin-top: 2rem;
-  transition: all 0.2s ease;
+/* --- Split Layout Refinement --- */
+
+.auth-content {
+  padding: 40px 8%;
 }
 
-.btn-auth-submit:hover:not(:disabled) {
-  background: #374151;
+@media (min-width: 992px) {
+  .auth-content {
+    padding: 60px 10%;
+  }
 }
 
-.btn-auth-submit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/* Mobile Tweak */
+@media (max-width: 576px) {
+  :root {
+    --base-font-size: 13px; /* Slightly smaller on tiny screens to avoid wrapping */
+  }
 }

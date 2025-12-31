@@ -42,3 +42,54 @@
   align-items: center;
   justify-content: center;
 }
+/* Custom Scaling Classes */
+.x-small { font-size: 0.75rem !important; }
+.xx-small { font-size: 0.65rem !important; }
+
+/* Input Styling */
+.input-group input::placeholder {
+  color: #adb5bd;
+  font-size: 0.75rem;
+}
+
+/* Card Improvements */
+.resource-card {
+  border: 1px solid #f3f4f6 !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.resource-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.05) !important;
+  border-color: #e5e7eb !important;
+}
+
+.resource-card:active {
+  transform: scale(0.98);
+}
+
+/* Pagination Styling */
+.page-link {
+  font-size: 0.7rem;
+  transition: background 0.2s;
+}
+
+.page-link:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Scroll Animation for Filters */
+.btn-light {
+  background-color: #f8fafc;
+  color: #64748b;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Ensure icons align well with small text */
+.bi {
+  vertical-align: -0.125em;
+}

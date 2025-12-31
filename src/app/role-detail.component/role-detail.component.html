@@ -1,62 +1,69 @@
-
-
-<div class="container py-5 mt-5" *ngIf="!selectedRole">
+<div class="container py-4" *ngIf="!selectedRole">
   <div class="text-center py-5">
-    <div class="spinner-border spinner-border-sm text-dark" role="status">
-      <span class="visually-hidden">Loading career details...</span>
+    <div class="spinner-border spinner-border-sm text-primary opacity-50" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-    <p class="text-muted small mt-3">Loading career insights...</p>
+    <p class="text-muted xx-small mt-3">Curating your career insights...</p>
   </div>
 </div>
 
-<div class="container py-4" *ngIf="selectedRole">
+<div class="container py-3" *ngIf="selectedRole">
   <div class="row justify-content-center">
-    <div class="col-lg-8"> <div class="mb-4 pb-4 border-bottom">
-      <a routerLink="/career-paths" class="text-decoration-none text-muted small fw-bold mb-3 d-inline-block">
-        <i class="bi bi-arrow-left me-1"></i> BACK TO DIRECTORY
-      </a>
-      <h2 class="fw-bold mb-2">{{ selectedRole.title }}</h2>
-      <div class="d-flex align-items-center gap-3">
-        <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 0.7rem;">{{ selectedRole.industry }}</span>
-        <span class="text-muted small"><i class="bi bi-cash-stack me-1"></i>{{ selectedRole.salaryRange }} Average p.a.</span>
+    <div class="col-lg-7">
+
+      <div class="mb-4 pb-3 border-bottom">
+        <a routerLink="/career-paths" class="text-decoration-none text-muted xx-small fw-bold mb-2 d-inline-block tracking-tight">
+          <i class="bi bi-arrow-left me-1"></i> BACK TO DIRECTORY
+        </a>
+        <h3 class="fw-bold mb-1 text-dark" style="font-size: 1.15rem; letter-spacing: -0.02em;">{{ selectedRole.title }}</h3>
+
+        <div class="d-flex align-items-center gap-3">
+          <span class="badge rounded-pill bg-light text-muted border-0 px-2 py-1 xx-small fw-bold">
+            {{ selectedRole.industry }}
+          </span>
+          <span class="text-muted xx-small fw-medium">
+            <i class="bi bi-cash-stack me-1 text-primary"></i>{{ selectedRole.salaryRange }} Avg. p.a.
+          </span>
+        </div>
       </div>
-    </div>
 
       <div class="row g-4">
         <div class="col-md-7">
           <section class="mb-4">
-            <h6 class="fw-bold mb-3">Role Overview</h6>
-            <p class="text-muted" style="font-size: 0.9rem; line-height: 1.6;">{{ selectedRole.dayInLife }}</p>
+            <h6 class="fw-bold mb-2 text-dark" style="font-size: 0.85rem;">Role Overview</h6>
+            <p class="text-muted" style="font-size: 0.8rem; line-height: 1.6;">
+              {{ selectedRole.dayInLife }}
+            </p>
           </section>
 
           <section>
-            <h6 class="fw-bold mb-3">Is this for you?</h6>
+            <h6 class="fw-bold mb-2 text-dark" style="font-size: 0.85rem;">Is this for you?</h6>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item border-0 ps-0 d-flex align-items-start bg-transparent py-2" *ngFor="let point of selectedRole.whoShouldApply">
-                <i class="bi bi-check2 text-primary me-2 mt-1"></i>
-                <span class="small text-secondary">{{ point }}</span>
+              <li class="list-group-item border-0 ps-0 d-flex align-items-start bg-transparent py-1-5" *ngFor="let point of selectedRole.whoShouldApply">
+                <i class="bi bi-check2-circle text-primary me-2 mt-1" style="font-size: 0.75rem;"></i>
+                <span class="x-small text-secondary">{{ point }}</span>
               </li>
             </ul>
           </section>
         </div>
 
         <div class="col-md-5">
-          <div class="bg-light p-4 rounded-3 border-0 shadow-sm">
-            <h6 class="fw-bold mb-3" style="font-size: 0.85rem;">Core Skillset</h6>
-            <div class="d-flex flex-wrap gap-2 mb-4">
-              <span class="badge bg-white text-dark border px-2 py-1 rounded-1 fw-medium"
-                    style="font-size: 0.7rem;"
+          <div class="bg-light p-3 rounded-3 border-0 shadow-sm border-start border-3 border-primary">
+            <h6 class="fw-bold mb-2" style="font-size: 0.8rem;">Core Skillset</h6>
+            <div class="d-flex flex-wrap gap-1 mb-4">
+              <span class="badge bg-white text-dark border-0 shadow-sm px-2 py-1 rounded-1 fw-bold"
+                    style="font-size: 0.65rem;"
                     *ngFor="let skill of selectedRole.skillsNeeded">
                 {{ skill }}
               </span>
             </div>
 
-            <div class="pt-3 border-top">
-              <h6 class="fw-bold mb-2" style="font-size: 0.85rem;">Typical Employers in SA</h6>
-              <p class="text-muted mb-4" style="font-size: 0.75rem;">
-                Top Banks (FNB, Standard Bank), Major Retailers (Shoprite, Takealot), and Fintech hubs.
+            <div class="pt-3 border-top border-light-subtle">
+              <h6 class="fw-bold mb-2" style="font-size: 0.8rem;">Top SA Employers</h6>
+              <p class="text-muted mb-4 xx-small" style="line-height: 1.5;">
+                Leading Banks (Standard Bank, Capitec), E-commerce (Takealot, Bash), and Fintech startups.
               </p>
-              <button class="btn btn-dark w-100 rounded-2 py-2 small fw-bold" routerLink="/JobSource">
+              <button class="btn btn-primary w-100 rounded-pill py-2 x-small fw-bold shadow-sm" routerLink="/JobSource">
                 Find Open Positions
               </button>
             </div>

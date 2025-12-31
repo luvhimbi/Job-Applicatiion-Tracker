@@ -1,0 +1,31 @@
+/* Helper Scales */
+.x-small { font-size: 0.75rem !important; }
+.xx-small { font-size: 0.65rem !important; }
+.tracking-tight { letter-spacing: 0.05em; }
+
+/* List Spacing */
+.py-1-5 {
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.35rem !important;
+}
+
+/* Sidebar accent */
+.border-start.border-3.border-primary {
+  border-left-width: 3px !important;
+}
+
+/* Button scaling */
+.btn-primary {
+  transition: all 0.2s;
+  letter-spacing: 0.2px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+/* Header reduction */
+.col-lg-7 {
+  max-width: 650px;
+}

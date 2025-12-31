@@ -1,9 +1,10 @@
-/* Clean Active State */
+/* Navigation Links Styling */
 .nav-link {
-  font-weight: 500;
   color: #6c757d !important;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .nav-link:hover {
@@ -20,36 +21,63 @@
 .navbar-brand:hover .brand-icon {
   transform: rotate(-10deg);
   transition: transform 0.2s ease;
+  display: inline-block;
 }
 
-/* Sticky shadow refinement */
+/* Sticky shadow with Glassmorphism */
 .sticky-top {
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.95) !important;
-}.x-small {
-   font-size: 0.75rem;
- }
+}
+
+/* Dropdown Customization */
+.dropdown-toggle::after {
+  content: '\F282'; /* Bootstrap Icon Chevron Down */
+  font-family: 'bootstrap-icons';
+  border: none;
+  font-size: 0.6rem;
+  margin-left: auto; /* Pushes arrow to the right on mobile */
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+.dropdown.show .dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+
+.dropdown-item {
+  transition: background-color 0.2s;
+}
 
 .dropdown-item:active {
   background-color: #f8f9fa;
   color: #0d6efd;
 }
 
-.dropdown-toggle::after {
-  display: none; /* Removes the default arrow for a cleaner look */
+/* Ensure navbar items look good when collapsed */
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1rem !important;
+    margin-bottom: 0.25rem;
+  }
+
+  .dropdown-menu {
+    border: 1px solid #f0f0f0 !important;
+    margin-top: 10px !important;
+  }
+
+  .dropdown-toggle {
+    justify-content: flex-start;
+    width: fit-content;
+    margin-left: 0.5rem;
+  }
 }
 
-.nav-link.dropdown-toggle:hover {
-  background-color: #efefef !important;
-  border-color: #dee2e6 !important;
+.x-small {
+  font-size: 0.75rem;
 }
 
-/* Add a subtle indicator that it's a dropdown */
-.nav-link.dropdown-toggle::after {
-  content: '\F282'; /* Bootstrap Icon Chevron Down */
-  font-family: 'bootstrap-icons';
-  border: none;
-  font-size: 0.6rem;
-  margin-left: 5px;
-  vertical-align: middle;
-}s
+.tracking-tight {
+  letter-spacing: -0.025em;
+}

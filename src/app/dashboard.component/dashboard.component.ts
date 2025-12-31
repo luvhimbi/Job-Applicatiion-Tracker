@@ -1,95 +1,99 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { JobApplication, JobStatus } from '../models/job-application.model'; // Import JobStatus
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { map } from 'rxjs/operators';
+
+import { JobApplication, JobStatus } from '../models/job-application.model';
 import { AuthService } from '../services/auth.service';
 import { JobApplicationService } from '../services/job-application.service';
-import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common'; // Added NgIf
-import { FormsModule } from '@angular/forms';
-import { FooterComponent } from '../footer.component/footer.component';
 import { NavbarComponent } from '../navbar.component/navbar.component';
-import { AddApplicationComponent } from '../add-application.component/add-application.component';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true, // Ensure standalone is present if using imports
+  standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   imports: [
-    NgForOf,
-    NgIf,
+    CommonModule,
     FormsModule,
-    NavbarComponent,
     DatePipe,
-    NgClass,
-    RouterLink
+    RouterLink,
+    NavbarComponent
   ]
 })
 export class DashboardComponent implements OnInit {
-  // Use inject for a cleaner constructor
   private authService = inject(AuthService);
   protected applicationService = inject(JobApplicationService);
 
-  applications: JobApplication[] = [];
-  userName: string | undefined = '';
+  // Signals for high-performance state management
+  applications = signal<JobApplication[]>([]);
+  userName = signal<string>('Explorer');
+  isLoading = signal<boolean>(true);
+  isLoggedIn = signal<boolean>(false);
 
   ngOnInit(): void {
-    // Reactive way to get the user's name
-    this.authService.userProfile$.subscribe(profile => {
-      if (profile) this.userName = profile.displayName;
-    });
-
-    this.loadApplications();
+    this.initAuth();
   }
 
-  loadApplications() {
-    this.applicationService.getApplications().subscribe({
-      next: (apps) => {
-        this.applications = apps;
+  private initAuth(): void {
+    this.authService.userProfile$.subscribe({
+      next: (profile) => {
+        this.isLoggedIn.set(!!profile);
+        if (profile) {
+          // Extracts first name to make the greeting warm and personal
+          this.userName.set(profile.displayName?.split(' ')[0] || 'Explorer');
+          this.loadApplications();
+        } else {
+          this.isLoading.set(false);
+        }
       },
-      error: (err) => console.error('Error loading applications:', err)
+      error: () => this.isLoading.set(false)
     });
   }
-  getStatusBadgeClass(status: string): string {
-    // Returns the specific class name based on the lowercase status
-    return 'bg-' + status.toLowerCase();
-  }
-  getCountByStatus(status: string): number {
-    return this.applications.filter(app => app.status === status).length;
+
+  loadApplications(): void {
+    this.isLoading.set(true);
+    this.applicationService.getApplications()
+      .pipe(
+        map(apps => apps.map(app => ({
+          ...app,
+          // Pre-processing dates to JS Objects for the Angular DatePipe
+          applicationDate: this.formatFirebaseDate(app.applicationDate)
+        })))
+      )
+      .subscribe({
+        next: (apps) => {
+          this.applications.set(apps);
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          console.error('Pipeline Error:', err);
+          this.isLoading.set(false);
+        }
+      });
   }
 
-  // FIX: Added JobStatus type cast to resolve TS2322
-  async updateStatus(id: string, newStatus: string) {
-    try {
-      // FIX: Changed updateApplication to update (matches your Service)
-      await this.applicationService.updateApplication(id, {
-        status: newStatus as JobStatus
-      });
-    } catch (error) {
-      console.error('Update failed', error);
-    }
+  getStatusBadgeClass(status: string): string {
+    const s = status?.toLowerCase();
+    return `status-badge-soft bg-${s}`;
   }
 
   async deleteApp(id: string) {
-    if (confirm('Are you sure you want to delete this application?')) {
-      try {
-        // FIX: Changed deleteApplication to delete (matches your Service)
-        await this.applicationService.deleteApplication(id);
-      } catch (error) {
-        console.error('Delete failed', error);
-      }
+    if (!confirm('Remove this application from your journey?')) return;
+    try {
+      await this.applicationService.deleteApplication(id);
+      // Optimistic Update: UI responds instantly before DB confirms
+      this.applications.update(apps => apps.filter(a => a.id !== id));
+    } catch (error) {
+      console.error('Action failed:', error);
     }
   }
 
-  logout() {
-    this.authService.logout();
-  }
-
-  formatFirebaseDate(date: any): Date | any {
-    // If it's a Firestore Timestamp, convert it to a JS Date
+  private formatFirebaseDate(date: any): Date {
     if (date && typeof date.toDate === 'function') {
       return date.toDate();
     }
-    // Otherwise, return it as is (standard Date or string)
-    return date;
+    return date || new Date();
   }
 }
