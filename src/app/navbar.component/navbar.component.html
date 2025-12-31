@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-1">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-1 border-bottom">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center fw-bold text-primary fs-6" routerLink="/">
       <i class="bi bi-briefcase-fill me-2 brand-icon"></i>
@@ -33,15 +33,20 @@
               <i class="bi bi-compass me-2 me-lg-1"></i> Career Path
             </a>
           </li>
+          <li class="nav-item mx-lg-1 w-100 w-lg-auto mb-2 mb-lg-0">
+            <a class="nav-link px-3 py-2 fw-medium" routerLink="/opportunities" routerLinkActive="active-link">
+              <i class="bi bi-mortarboard me-1"></i> Internships
+            </a>
+          </li>
 
           <li class="nav-item dropdown ms-lg-2 w-100 w-lg-auto">
-            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 p-1 pe-3 border rounded-pill bg-light shadow-sm"
+            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 p-1 pe-3 border rounded-pill bg-light shadow-sm profile-button"
                href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #eee !important;">
-              <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0"
+              <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0 avatar-circle"
                    style="width: 28px; height: 28px; font-size: 0.7rem;">
                 {{ profile.displayName?.charAt(0)?.toUpperCase() || '?' }}
               </div>
-              <span class="fw-bold text-truncate" style="font-size: 0.75rem; color: #333; max-width: 120px;">
+              <span class="fw-bold text-truncate display-name" style="font-size: 0.75rem; color: #333; max-width: 120px;">
                 {{ profile.displayName }}
               </span>
             </a>

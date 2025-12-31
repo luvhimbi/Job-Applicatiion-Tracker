@@ -1,0 +1,62 @@
+/* Typography Scales */
+.x-small { font-size: 0.75rem !important; }
+.xx-small { font-size: 0.65rem !important; }
+
+/* Filter Pills */
+.filter-pills {
+  border: 1px solid #eef2f6;
+}
+
+.btn-filter {
+  color: #64748b;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-filter.active {
+  background-color: white !important;
+  color: #0d6efd !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+/* Card Styling */
+.opportunity-card {
+  border: 1px solid #f1f5f9 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.06) !important;
+  border-color: #e2e8f0 !important;
+}
+
+.type-strip {
+  height: 4px;
+  width: 100%;
+}
+
+.type-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+/* Colors */
+.bg-primary-subtle { background-color: #eef2ff !important; }
+.bg-warning-subtle { background-color: #fffbeb !important; }
+.text-warning { color: #d97706 !important; }
+
+/* Spacing & Layout */
+.py-1-5 {
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.35rem !important;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.lh-base {
+  line-height: 1.5 !important;
+}

@@ -15,6 +15,8 @@ import {NotFoundComponent} from './not-found.component/not-found.component';
 import {LegalComponent} from './legal.component/legal.component';
 import {HelpCenterComponent} from './help-center.component/help-center.component';
 import {HelpArticleComponent} from './help-article.component/help-article.component';
+import {OpportunitiesComponent} from './opportunities.component/opportunities.component';
+import {SeederComponent} from './seeder.component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -25,8 +27,14 @@ export const routes: Routes = [
   {path:'JobSource',component:JobDiscoveryComponent, canActivate: [AuthGuard] },
   { path: 'application/:id', component: ApplicationDetailsComponent ,canActivate: [AuthGuard]},
   { path: 'application/edit/:id', component: ApplicationEditComponent, canActivate: [AuthGuard] }
-  ,{ path: 'career-paths', component: RoleListComponent },
-  { path: 'career-paths/:id', component: RoleDetailComponent },
+  ,{ path: 'career-paths', component: RoleListComponent, canActivate: [AuthGuard] },
+  { path: 'career-paths/:id', component: RoleDetailComponent,canActivate: [AuthGuard] },
+  {
+    path: 'opportunities',
+    component: OpportunitiesComponent,
+    title: 'Internships & Learnerships | Career Pipeline',
+    canActivate: [AuthGuard]
+  },
   {
     path: 'legal',
     component: LegalComponent,
@@ -42,6 +50,6 @@ export const routes: Routes = [
     component: HelpArticleComponent
   },
   // Utility (Database Seeder - remove in production)
-  { path: 'admin/seed', component: SeedCareersComponent },
+  { path: 'admin/seed', component: SeederComponent },
   { path: '**', component: NotFoundComponent }
 ];
