@@ -10,13 +10,11 @@ import {ApplicationDetailsComponent} from './application-details.component/appli
 import {ApplicationEditComponent} from './application-edit.component/application-edit.component';
 import {RoleListComponent} from './role-list.component/role-list.component';
 import {RoleDetailComponent} from './role-detail.component/role-detail.component';
-import {SeedCareersComponent} from './seed-careers.component';
 import {NotFoundComponent} from './not-found.component/not-found.component';
 import {LegalComponent} from './legal.component/legal.component';
-import {HelpCenterComponent} from './help-center.component/help-center.component';
-import {HelpArticleComponent} from './help-article.component/help-article.component';
 import {OpportunitiesComponent} from './opportunities.component/opportunities.component';
 import {SeederComponent} from './seeder.component';
+import {AuthActionComponent} from './auth-action.component/auth-action-component';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -40,15 +38,7 @@ export const routes: Routes = [
     component: LegalComponent,
     title: 'Legal - JobTracker'
   },
-  {
-    path: 'help',
-    component: HelpCenterComponent,
-    title: 'Help Center - JobTracker'
-  },
-  {
-    path: 'help/:slug',
-    component: HelpArticleComponent
-  },
+  { path: 'auth-action', component: AuthActionComponent },
   // Utility (Database Seeder - remove in production)
   { path: 'admin/seed', component: SeederComponent },
   { path: '**', component: NotFoundComponent }

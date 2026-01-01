@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AsyncPipe, NgIf } from '@angular/common';
+import {AsyncPipe, CommonModule} from '@angular/common';
 import Swal from 'sweetalert2'; // 👈 Import SweetAlert2
 
 @Component({
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'; // 👈 Import SweetAlert2
     AsyncPipe,
     RouterLink,
     RouterLinkActive,
-    NgIf
+    CommonModule
   ],
   styleUrls: ['./navbar.component.css']
 })

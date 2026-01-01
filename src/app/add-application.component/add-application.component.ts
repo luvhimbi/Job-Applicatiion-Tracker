@@ -2,15 +2,14 @@ import { Component, EventEmitter, Output, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { JobApplicationService } from '../services/job-application.service';
 import { JobApplication } from '../models/job-application.model';
-import { NgIf } from '@angular/common';
-import { NavbarComponent } from '../navbar.component/navbar.component';
-import { Router } from '@angular/router'; // 👈 Inject Router
-import Swal from 'sweetalert2'; // 👈 Inject SweetAlert2
+import {CommonModule} from '@angular/common';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-application',
   standalone: true,
-  imports: [FormsModule, NgIf, NavbarComponent],
+  imports: [FormsModule, CommonModule],
   templateUrl: './add-application.component.html'
 })
 export class AddApplicationComponent implements OnInit {
@@ -19,15 +18,23 @@ export class AddApplicationComponent implements OnInit {
 
   newApplication: JobApplication = this.getResetObject();
 
+  // Preset Company List for searchable dropdown
+  commonCompanies: string[] = [
+    'Amazon', 'Google', 'Microsoft', 'Standard Bank', 'First National Bank (FNB)',
+    'Absa Group', 'Nedbank', 'Capitec', 'MTN', 'Vodacom',
+    'Old Mutual', 'Sanlam', 'Discovery', 'Multichoice', 'Takealot',
+    'OfferZen', 'Entelect', 'BBD', 'Derivco', 'Capgemini', 'Accenture','Geeks4learning',
+    'reverside'
+  ].sort(); // Sort alphabetically
+
   // UI States
-  isLoading = true; // 👈 Page initialization state
+  isLoading = true;
   isSubmitting = false;
   showInfo = false;
 
   @Output() applicationAdded = new EventEmitter<void>();
 
   ngOnInit() {
-    // Simulate a brief load for smooth UI entry
     setTimeout(() => {
       this.isLoading = false;
     }, 600);
@@ -51,9 +58,11 @@ export class AddApplicationComponent implements OnInit {
     this.isSubmitting = true;
 
     try {
+      // Ensure the company name is trimmed and formatted nicely
+      this.newApplication.companyName = this.newApplication.companyName.trim();
+
       await this.applicationService.create(this.newApplication);
 
-      // SweetAlert Success Toast
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -68,7 +77,7 @@ export class AddApplicationComponent implements OnInit {
       });
 
       this.applicationAdded.emit();
-      this.router.navigate(['/']); // 👈 Redirect to Dashboard
+      this.router.navigate(['/']);
 
     } catch (error: any) {
       console.error('Error:', error);

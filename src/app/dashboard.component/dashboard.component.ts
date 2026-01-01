@@ -18,8 +18,7 @@ import { NavbarComponent } from '../navbar.component/navbar.component';
     CommonModule,
     FormsModule,
     DatePipe,
-    RouterLink,
-    NavbarComponent
+    RouterLink
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -32,6 +31,10 @@ export class DashboardComponent implements OnInit {
   isLoading = signal<boolean>(true);
   isLoggedIn = signal<boolean>(false);
 
+  // --- NEW UI STATE ---
+  currentView = signal<'grid' | 'table'>('grid');
+  searchQuery = signal<string>('');
+
   ngOnInit(): void {
     this.initAuth();
   }
@@ -41,7 +44,6 @@ export class DashboardComponent implements OnInit {
       next: (profile) => {
         this.isLoggedIn.set(!!profile);
         if (profile) {
-          // Extracts first name to make the greeting warm and personal
           this.userName.set(profile.displayName?.split(' ')[0] || 'Explorer');
           this.loadApplications();
         } else {
@@ -58,7 +60,6 @@ export class DashboardComponent implements OnInit {
       .pipe(
         map(apps => apps.map(app => ({
           ...app,
-          // Pre-processing dates to JS Objects for the Angular DatePipe
           applicationDate: this.formatFirebaseDate(app.applicationDate)
         })))
       )
@@ -74,16 +75,29 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  // Helper to filter applications based on search query
+  filteredApplications() {
+    const query = this.searchQuery().toLowerCase();
+    return this.applications().filter(app =>
+      app.companyName.toLowerCase().includes(query) ||
+      app.jobTitle.toLowerCase().includes(query)
+    );
+  }
+
   getStatusBadgeClass(status: string): string {
-    const s = status?.toLowerCase();
-    return `status-badge-soft bg-${s}`;
+    switch (status) {
+      case 'Applied': return 'bg-primary-subtle text-primary';
+      case 'Interview': return 'bg-warning-subtle text-warning text-dark';
+      case 'Offer': return 'bg-success-subtle text-success';
+      case 'Rejected': return 'bg-danger-subtle text-danger';
+      default: return 'bg-secondary-subtle text-secondary';
+    }
   }
 
   async deleteApp(id: string) {
     if (!confirm('Remove this application from your journey?')) return;
     try {
       await this.applicationService.deleteApplication(id);
-      // Optimistic Update: UI responds instantly before DB confirms
       this.applications.update(apps => apps.filter(a => a.id !== id));
     } catch (error) {
       console.error('Action failed:', error);
@@ -95,5 +109,10 @@ export class DashboardComponent implements OnInit {
       return date.toDate();
     }
     return date || new Date();
+  }
+
+  // --- NEW VIEW TOGGLE METHODS ---
+  toggleView(view: 'grid' | 'table'): void {
+    this.currentView.set(view);
   }
 }

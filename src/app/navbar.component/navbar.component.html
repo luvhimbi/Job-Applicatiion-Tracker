@@ -1,66 +1,67 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-1 border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3 border-bottom">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center fw-bold text-primary fs-6" routerLink="/">
-      <i class="bi bi-briefcase-fill me-2 brand-icon"></i>
+    <a class="navbar-brand d-flex align-items-center fw-bold text-primary fs-4" routerLink="/">
+      <i class="bi bi-briefcase-fill me-2 brand-icon" style="font-size: 1.8rem;"></i>
       <span class="tracking-tight">JobTracker</span>
     </a>
 
     <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon" style="width: 1em; height: 1em;"></span>
+      <span class="navbar-toggler-icon" style="width: 1.5em; height: 1.5em;"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ng-container *ngIf="authService.userProfile$ | async as profile; else signedOut">
 
-        <ul class="navbar-nav ms-auto align-items-center mt-3 mt-lg-0" style="font-size: 0.8rem;">
-          <li class="nav-item mx-lg-1 w-100 w-lg-auto">
-            <a class="nav-link px-3 py-2 fw-medium" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
-              <i class="bi bi-grid-1x2 me-2 me-lg-1"></i> Dashboard
+        <ul class="navbar-nav ms-auto align-items-center mt-3 mt-lg-0" style="font-size: 0.95rem;">
+          <li class="nav-item mx-lg-2 w-100 w-lg-auto">
+            <a class="nav-link px-3 py-2 fw-semibold" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+              <i class="bi bi-grid-1x2 me-2"></i> Dashboard
             </a>
           </li>
-          <li class="nav-item mx-lg-1 w-100 w-lg-auto">
-            <a class="nav-link px-3 py-2 fw-medium" routerLink="/add-application" routerLinkActive="active-link">
-              <i class="bi bi-plus-lg me-2 me-lg-1"></i> Add New
+          <li class="nav-item mx-lg-2 w-100 w-lg-auto">
+            <a class="nav-link px-3 py-2 fw-semibold" routerLink="/add-application" routerLinkActive="active-link">
+              <i class="bi bi-plus-lg me-2"></i> Add New
             </a>
           </li>
-          <li class="nav-item mx-lg-1 w-100 w-lg-auto">
-            <a class="nav-link px-3 py-2 fw-medium" routerLink="/JobSource" routerLinkActive="active-link">
-              <i class="bi bi-search me-2 me-lg-1"></i> Discovery
+          <li class="nav-item mx-lg-2 w-100 w-lg-auto">
+            <a class="nav-link px-3 py-2 fw-semibold" routerLink="/JobSource" routerLinkActive="active-link">
+              <i class="bi bi-search me-2"></i> Discovery
             </a>
           </li>
-          <li class="nav-item mx-lg-1 w-100 w-lg-auto mb-2 mb-lg-0">
-            <a class="nav-link px-3 py-2 fw-medium" routerLink="/career-paths" routerLinkActive="active-link">
-              <i class="bi bi-compass me-2 me-lg-1"></i> Career Path
+          <li class="nav-item mx-lg-2 w-100 w-lg-auto">
+            <a class="nav-link px-3 py-2 fw-semibold" routerLink="/career-paths" routerLinkActive="active-link">
+              <i class="bi bi-compass me-2"></i> Career Path
             </a>
           </li>
-          <li class="nav-item mx-lg-1 w-100 w-lg-auto mb-2 mb-lg-0">
-            <a class="nav-link px-3 py-2 fw-medium" routerLink="/opportunities" routerLinkActive="active-link">
-              <i class="bi bi-mortarboard me-1"></i> Internships
+          <li class="nav-item mx-lg-2 w-100 w-lg-auto mb-2 mb-lg-0">
+            <a class="nav-link px-3 py-2 fw-semibold" routerLink="/opportunities" routerLinkActive="active-link">
+              <i class="bi bi-mortarboard me-2"></i> Internships
             </a>
           </li>
 
-          <li class="nav-item dropdown ms-lg-2 w-100 w-lg-auto">
-            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 p-1 pe-3 border rounded-pill bg-light shadow-sm profile-button"
-               href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #eee !important;">
+          <li class="nav-item dropdown ms-lg-3 w-100 w-lg-auto">
+            <a class="nav-link dropdown-toggle d-flex align-items-center gap-3 p-2 pe-4 border rounded-pill bg-light shadow-sm profile-button"
+               href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #ddd !important;">
               <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0 avatar-circle"
-                   style="width: 28px; height: 28px; font-size: 0.7rem;">
+                   style="width: 36px; height: 36px; font-size: 0.9rem;">
                 {{ profile.displayName?.charAt(0)?.toUpperCase() || '?' }}
               </div>
-              <span class="fw-bold text-truncate display-name" style="font-size: 0.75rem; color: #333; max-width: 120px;">
+              <span class="fw-bold text-truncate display-name" style="font-size: 0.85rem; color: #333; max-width: 150px;">
                 {{ profile.displayName }}
               </span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-1 rounded-3">
-              <li class="px-3 py-2 border-bottom mb-1">
-                <p class="mb-0 fw-bold" style="font-size: 0.75rem;">{{ profile.displayName }}</p>
-                <p class="mb-0 text-muted" style="font-size: 0.65rem;">{{ profile.email }}</p>
+
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-3 p-2 rounded-3" style="min-width: 200px;">
+              <li class="px-3 py-3 border-bottom mb-1">
+                <p class="mb-0 fw-bold" style="font-size: 0.9rem;">{{ profile.displayName }}</p>
+                <p class="mb-0 text-muted" style="font-size: 0.8rem;">{{ profile.email }}</p>
               </li>
-              <li><a class="dropdown-item rounded-2 py-2" style="font-size: 0.75rem;" routerLink="/profile">
+              <li><a class="dropdown-item rounded-2 py-2" style="font-size: 0.85rem;" routerLink="/profile">
                 <i class="bi bi-person me-2"></i> My Profile</a>
               </li>
               <li><hr class="dropdown-divider my-1"></li>
               <li>
-                <button class="dropdown-item rounded-2 py-2 text-danger fw-bold" style="font-size: 0.75rem;" (click)="logout()">
+                <button class="dropdown-item rounded-2 py-2 text-danger fw-bold" style="font-size: 0.85rem;" (click)="logout()">
                   <i class="bi bi-box-arrow-right me-2"></i> Sign Out
                 </button>
               </li>
@@ -70,12 +71,12 @@
       </ng-container>
 
       <ng-template #signedOut>
-        <ul class="navbar-nav ms-auto align-items-center gap-2 mt-3 mt-lg-0">
+        <ul class="navbar-nav ms-auto align-items-center gap-3 mt-3 mt-lg-0">
           <li class="nav-item">
-            <a class="btn btn-link text-decoration-none text-muted fw-bold small" routerLink="/login">Login</a>
+            <a class="btn btn-link text-decoration-none text-muted fw-bold" style="font-size: 0.9rem;" routerLink="/login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-dark btn-sm px-4 fw-bold rounded-pill shadow-sm" style="font-size: 0.75rem;" routerLink="/register">Get Started</a>
+            <a class="btn btn-dark btn-md px-4 py-2 fw-bold rounded-pill shadow-sm" style="font-size: 0.9rem;" routerLink="/register">Get Started</a>
           </li>
         </ul>
       </ng-template>
@@ -83,3 +84,33 @@
     </div>
   </div>
 </nav>
+
+<style>
+  /* Extra spacing for the sticky effect */
+  .navbar {
+    min-height: 80px;
+  }
+
+  .nav-link {
+    transition: color 0.2s ease-in-out;
+  }
+
+  .nav-link:hover {
+    color: var(--bs-primary) !important;
+  }
+
+  .active-link {
+    color: var(--bs-primary) !important;
+    border-bottom: 2px solid var(--bs-primary);
+  }
+
+  /* Ensure the profile button looks professional when scaled up */
+  .profile-button {
+    transition: all 0.2s ease;
+  }
+
+  .profile-button:hover {
+    background-color: #f0f0f0 !important;
+    border-color: #ccc !important;
+  }
+</style>

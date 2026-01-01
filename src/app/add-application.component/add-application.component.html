@@ -1,4 +1,3 @@
-
 <div class="container py-4">
   <div class="row justify-content-center">
     <div class="col-lg-10">
@@ -26,7 +25,7 @@
         <div *ngIf="showInfo" class="alert bg-light border-0 rounded-3 p-3 mb-4 animate__animated animate__fadeInDown" style="border-left: 4px solid #0d6efd !important;">
           <h6 class="fw-bold mb-1" style="font-size: 0.85rem;">How it works</h6>
           <p class="text-muted mb-0" style="font-size: 0.75rem;">
-            Enter the details of a job you've just applied for. Once saved, it will appear in your <strong>Dashboard</strong>.
+            Search for a company or type a new one. Once saved, it will appear in your <strong>Dashboard</strong>.
           </p>
         </div>
 
@@ -37,22 +36,33 @@
 
                 <div class="col-md-6 col-lg-3">
                   <label class="form-label small fw-bold text-muted">Company Name</label>
-                  <input type="text" class="form-control form-control-sm border-light-subtle bg-light px-3 py-2"
+                  <input type="text"
+                         list="companyOptions"
+                         class="form-control form-control-sm border-light-subtle bg-light px-3 py-2"
                          name="companyName" required minlength="2"
+                         placeholder="Search or type..."
                          [(ngModel)]="newApplication.companyName" #companyName="ngModel">
+
+                  <datalist id="companyOptions">
+                    <option *ngFor="let company of commonCompanies" [value]="company"></option>
+                  </datalist>
+
+                  <div *ngIf="companyName.invalid && companyName.touched" class="text-danger mt-1" style="font-size: 0.7rem;">
+                    Company name is required.
+                  </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3">
                   <label class="form-label small fw-bold text-muted">Job Title</label>
                   <input type="text" class="form-control form-control-sm border-light-subtle bg-light px-3 py-2"
-                         name="jobTitle" required minlength="3"
+                         name="jobTitle" required minlength="3" placeholder="e.g. Java Developer"
                          [(ngModel)]="newApplication.jobTitle" #jobTitle="ngModel">
                 </div>
 
                 <div class="col-md-6 col-lg-3">
                   <label class="form-label small fw-bold text-muted">Location</label>
                   <input type="text" class="form-control form-control-sm border-light-subtle bg-light px-3 py-2"
-                         name="location" required
+                         name="location" required placeholder="e.g. Johannesburg / Remote"
                          [(ngModel)]="newApplication.location" #location="ngModel">
                 </div>
 

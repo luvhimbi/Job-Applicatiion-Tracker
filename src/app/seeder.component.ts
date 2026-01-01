@@ -18,7 +18,62 @@ export class SeederComponent {
   private oppService = inject(OpportunityService);
 
   private seedData: Opportunity[] = [
-    { company: 'Geeks4learning', title: 'Software', type: 'Learnership', description: 'Combined work-study program for high-potential youth.', window: 'All year around', link: 'https://fnb.co.za/careers' }
+    { company: 'Geeks4learning',
+      title: 'Software',
+      type: 'Learnership',
+      description: 'Combined work-study program for high-potential youth.',
+      window: 'All year around',
+      link: 'https://fnb.co.za/careers'
+    },
+    {
+      company:'Shaper'
+      ,title:'Software',
+      type:'Learnership',
+      description:'Combined work-study program for high-potential youth.',
+      window:'All year around',
+      link:'https://shaper.co.za/',
+    },
+    {
+      company:'Umuzi'
+      ,title:'Software',
+      type:'Learnership',
+      description:'Combined work-study program for high-potential youth.',
+      window:'All year around',
+      link:'https://shaper.co.za/',
+    }, {
+      company:'Capaciti'
+      ,title:'Software',
+      type:'Learnership',
+      description:'Combined work-study program for high-potential youth.',
+      window:'All year around',
+      link:'https://shaper.co.za/',
+    },
+    {
+      company:'tshimologong skills academy'
+      ,title:'Software',
+      type:'Learnership',
+      description:'Combined work-study program for high-potential youth.',
+      window:'All year around',
+      link:'https://shaper.co.za/',
+    },
+    {
+      company:'HyperionDev'
+      ,title:'Software',
+      type:'Learnership',
+      description:'Combined work-study program for high-potential youth.',
+      window:'All year around',
+      link:'https://shaper.co.za/',
+    },
+    {
+      company:'mlab CodeTribe'
+      ,title:'Software',
+      type:'Learnership',
+      description:'Combined work-study program for high-potential youth.',
+      window:'All year around',
+      link:'https://shaper.co.za/',
+    }
+
+
   ];
 
   async seedDatabase() {

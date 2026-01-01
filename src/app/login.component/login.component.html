@@ -44,7 +44,8 @@
           <input class="form-check-input" type="checkbox" id="remember">
           <label class="form-check-label small text-muted" for="remember">Keep me signed in</label>
         </div>
-        <a href="#" class="small text-dark fw-bold text-decoration-none">Forgot?</a>
+        <a href="javascript:void(0)"
+           (click)="openForgotPassword()" class="small text-dark fw-bold text-decoration-none">Forgot?</a>
       </div>
 
       <button type="submit" [disabled]="loginForm.invalid || isLoading"

@@ -12,31 +12,30 @@
         </h2>
         <p class="text-muted mb-0 x-small">Every application is a seed planted for your future.</p>
       </div>
-      <a routerLink="/add-application" class="btn btn-primary rounded-pill px-3 py-1-5 x-small shadow-sm transition-all hover-lift">
-        <i class="bi bi-plus-lg me-1"></i> Log New Progress
-      </a>
-    </div>
 
-    <div class="card border-0 rounded-3 mb-4 shadow-sm support-banner">
-      <div class="card-body p-3">
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-          <div class="d-flex align-items-center">
-            <div class="icon-pulse bg-white rounded-circle me-3 shadow-sm">
-              <i class="bi bi-stars text-warning fs-6"></i>
-            </div>
-            <div>
-              <span class="fw-bold d-block text-dark x-small">Need fresh opportunities?</span>
-              <p class="text-muted mb-0 xx-small">We've linked the top tech job boards for you.</p>
-            </div>
-          </div>
-          <a routerLink="/JobSource" class="btn btn-xs btn-white rounded-pill fw-bold border shadow-sm">
-            View Discovery <i class="bi bi-arrow-right ms-1"></i>
-          </a>
+      <div class="d-flex align-items-center gap-2">
+        <div class="btn-group btn-group-sm p-1 bg-light rounded-pill border shadow-sm me-2">
+          <button class="btn rounded-pill px-3 transition-all"
+                  [class.btn-white]="currentView() === 'grid'"
+                  [class.text-muted]="currentView() !== 'grid'"
+                  (click)="currentView.set('grid')">
+            <i class="bi bi-grid-fill"></i>
+          </button>
+          <button class="btn rounded-pill px-3 transition-all"
+                  [class.btn-white]="currentView() === 'table'"
+                  [class.text-muted]="currentView() !== 'table'"
+                  (click)="currentView.set('table')">
+            <i class="bi bi-list-task"></i>
+          </button>
         </div>
+
+        <a routerLink="/add-application" class="btn btn-primary rounded-pill px-3 py-1-5 x-small shadow-sm transition-all hover-lift">
+          <i class="bi bi-plus-lg me-1"></i> Log New Progress
+        </a>
       </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+    <div *ngIf="currentView() === 'grid' && applications().length > 0" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
       <div class="col" *ngFor="let app of applications()">
         <div class="card h-100 border-0 shadow-sm rounded-3 card-hover bg-white">
           <div class="card-body p-3">
@@ -70,6 +69,56 @@
       </div>
     </div>
 
+    <div *ngIf="currentView() === 'table' && applications().length > 0" class="card border-0 shadow-sm rounded-3 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 custom-table">
+          <thead class="bg-light">
+          <tr>
+            <th class="ps-4 py-3 text-muted fw-bold x-small">COMPANY</th>
+            <th class="py-3 text-muted fw-bold x-small">JOB TITLE</th>
+            <th class="py-3 text-muted fw-bold x-small">STATUS</th>
+            <th class="py-3 text-muted fw-bold x-small">LOCATION</th>
+            <th class="py-3 text-muted fw-bold x-small">DATE</th>
+            <th class="pe-4 py-3 text-end text-muted fw-bold x-small">ACTION</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let app of applications()" class="transition-all cursor-pointer">
+            <td class="ps-4 py-3" [routerLink]="['/application', app.id]">
+              <span class="fw-bold text-dark x-small">{{ app.companyName }}</span>
+            </td>
+            <td class="py-3" [routerLink]="['/application', app.id]">
+              <span class="text-muted x-small">{{ app.jobTitle }}</span>
+            </td>
+            <td class="py-3">
+                <span class="badge rounded-pill px-2 py-1 status-badge-soft"
+                      [ngClass]="getStatusBadgeClass(app.status)">
+                  {{ app.status }}
+                </span>
+            </td>
+            <td class="py-3">
+              <span class="text-muted xx-small"><i class="bi bi-geo-alt me-1"></i>{{ app.location || 'Remote' }}</span>
+            </td>
+            <td class="py-3">
+              <span class="text-muted xx-small">{{ app.applicationDate | date:'MMM d, y' }}</span>
+            </td>
+            <td class="pe-4 py-3 text-end">
+              <div class="dropdown">
+                <button class="btn btn-xs btn-light rounded-circle shadow-none p-1" data-bs-toggle="dropdown">
+                  <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-3 x-small">
+                  <li><a class="dropdown-item py-1" [routerLink]="['/application', app.id]">View Details</a></li>
+                  <li><button class="dropdown-item text-danger py-1" (click)="deleteApp(app.id!)">Remove</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div *ngIf="applications().length === 0" class="text-center py-5">
       <div class="empty-icon-container mb-2">
         <i class="bi bi-journal-plus text-light-emphasis" style="font-size: 2rem;"></i>
@@ -78,5 +127,19 @@
       <p class="text-muted xx-small mb-3">Ready to track your next big move?</p>
       <a routerLink="/add-application" class="btn btn-outline-primary btn-sm rounded-pill px-4">Start Here</a>
     </div>
+
   </ng-container>
 </div>
+
+<style>
+  .btn-white { background: white !important; color: #0d6efd !important; border: 1px solid #dee2e6 !important; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .transition-all { transition: all 0.2s ease-in-out; }
+  .cursor-pointer { cursor: pointer; }
+  .custom-table tbody tr:hover { background-color: #f8f9fa; }
+  .xx-small { font-size: 0.65rem; }
+  .x-small { font-size: 0.75rem; }
+  th { letter-spacing: 0.05em; border-bottom: none; }
+  td { border-bottom: 1px solid #f2f2f2; }
+  .status-badge-soft { font-size: 0.65rem; font-weight: 600; }
+  .border-top-dashed { border-top: 1px dashed #dee2e6; }
+</style>
