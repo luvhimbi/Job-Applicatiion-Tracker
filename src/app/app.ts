@@ -1,13 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import {NavbarComponent} from './navbar.component/navbar.component';
 import {FooterComponent} from './footer.component/footer.component';
+import {ExternalLinkModalComponent} from './external-link-modal.component/external-link-modal.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, RouterOutlet],
+  imports: [CommonModule, NavbarComponent, FooterComponent, RouterOutlet, ExternalLinkModalComponent],
   templateUrl: './app.html'
 })
 export class App implements OnInit {

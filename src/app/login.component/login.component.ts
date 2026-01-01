@@ -3,6 +3,11 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import { filter, switchMap, take, timeout } from 'rxjs/operators';
+import { firstValueFrom } from 'rxjs';
+import { authState } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
+import { inject } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,6 +20,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
+  private auth = inject(Auth);
 
   email = '';
   password = '';
@@ -32,13 +38,43 @@ export class LoginComponent {
       // 1. Await the Firebase login
       await this.authService.login(this.email, this.password);
 
-      // 2. Navigate immediately to the root (Dashboard)
-      // The Navbar's async pipe will pick up the new user state automatically
-      await this.router.navigate(['/']);
+      // 2. Wait for Firebase auth state to have a user
+      await firstValueFrom(
+        authState(this.auth).pipe(
+          filter(user => user !== null),
+          take(1),
+          timeout(5000)
+        )
+      );
+
+      // 3. Wait for user profile to load from Firestore
+      // Use a fresh subscription to avoid cached null values
+      const user = await firstValueFrom(
+        this.authService.userProfile$.pipe(
+          filter(u => u !== null),
+          take(1),
+          timeout(5000)
+        )
+      );
+
+      if (!user) {
+        throw new Error('Failed to load user profile');
+      }
+
+      // 4. Navigate to dashboard - use navigateByUrl for more reliable navigation
+      await this.router.navigateByUrl('/', { skipLocationChange: false });
 
     } catch (error: any) {
-      console.error(error);
-      this.errorMessage = 'Invalid email or password. Please try again.';
+      console.error('Login error:', error);
+      if (error.name === 'TimeoutError') {
+        this.errorMessage = 'Login successful but loading profile timed out. Please refresh.';
+        // Still try to navigate
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 1000);
+      } else {
+        this.errorMessage = 'Invalid email or password. Please try again.';
+      }
     } finally {
       this.isLoading = false;
     }

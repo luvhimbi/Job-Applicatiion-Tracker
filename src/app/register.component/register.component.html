@@ -1,4 +1,3 @@
-
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div style="max-width: 400px; width: 100%;">
     <div class="mb-5 text-center">
@@ -27,8 +26,12 @@
             <i class="bi bi-person text-muted"></i>
           </span>
           <input type="text" class="form-control border-secondary-subtle bg-light-subtle py-2 px-3"
-                 placeholder="John Doe" [(ngModel)]="displayName" name="displayName" required #nameField="ngModel"
+                 placeholder="John Doe" [(ngModel)]="displayName" name="displayName" required minlength="3" #nameField="ngModel"
                  [class.is-invalid]="nameField.invalid && nameField.touched" style="font-size: 0.9rem;">
+        </div>
+        <div *ngIf="nameField.invalid && nameField.touched" class="text-danger xx-small mt-1">
+          <span *ngIf="nameField.errors?.['required']">Name is required.</span>
+          <span *ngIf="nameField.errors?.['minlength']">Name must be at least 3 characters.</span>
         </div>
       </div>
 
@@ -42,6 +45,10 @@
                  placeholder="name@email.com" [(ngModel)]="email" name="email" required email #emailField="ngModel"
                  [class.is-invalid]="emailField.invalid && emailField.touched" style="font-size: 0.9rem;">
         </div>
+        <div *ngIf="emailField.invalid && emailField.touched" class="text-danger xx-small mt-1">
+          <span *ngIf="emailField.errors?.['required']">Email is required.</span>
+          <span *ngIf="emailField.errors?.['email']">Please enter a valid email address.</span>
+        </div>
       </div>
 
       <div class="mb-4">
@@ -53,6 +60,10 @@
           <input type="password" class="form-control border-secondary-subtle bg-light-subtle py-2 px-3"
                  placeholder="min. 8 characters" [(ngModel)]="password" name="password" required minlength="8" #passField="ngModel"
                  [class.is-invalid]="passField.invalid && passField.touched" style="font-size: 0.9rem;">
+        </div>
+        <div *ngIf="passField.invalid && passField.touched" class="text-danger xx-small mt-1">
+          <span *ngIf="passField.errors?.['required']">Password is required.</span>
+          <span *ngIf="passField.errors?.['minlength']">Password must be at least 8 characters.</span>
         </div>
       </div>
 
@@ -68,3 +79,7 @@
     </p>
   </div>
 </div>
+
+<style>
+  .xx-small { font-size: 0.7rem; }
+</style>

@@ -3,7 +3,6 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import {NavbarComponent} from '../navbar.component/navbar.component';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +10,11 @@ import {NavbarComponent} from '../navbar.component/navbar.component';
   imports: [
     FormsModule,
     RouterLink,
-    NgIf,
-    NavbarComponent
+    NgIf
   ],
   templateUrl: './register.component.html'
 })
 export class RegisterComponent {
-
   displayName = '';
   email = '';
   password = '';
@@ -28,6 +25,9 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   async register() {
+    // Safety check: ensure loading only starts if data is present
+    if (!this.email || !this.password || !this.displayName) return;
+
     this.isLoading = true;
     this.errorMessage = '';
     this.isSuccess = false;
@@ -42,13 +42,10 @@ export class RegisterComponent {
       }, 1500);
 
     } catch (error: any) {
-      // Extract error message from service
+      // Logic to handle Firebase/Backend errors (e.g., Email already in use)
       this.errorMessage = error.message || 'Registration failed. Please try again.';
-      // We set isLoading to false here so they can fix the form and retry
       this.isLoading = false;
     } finally {
-      // If successful, we keep isLoading true to prevent double-clicks
-      // during the 1.5s redirect delay. If failed, we already set it to false above.
       if (!this.isSuccess) {
         this.isLoading = false;
       }

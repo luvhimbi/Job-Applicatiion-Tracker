@@ -1,0 +1,62 @@
+/* ============================================
+   FOOTER - MATERIAL DESIGN
+   ============================================ */
+
+footer {
+  background-color: var(--md-surface) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Footer brand */
+.footer-brand {
+  color: var(--md-on-surface) !important;
+  font-weight: var(--md-font-weight-medium);
+  font-size: var(--md-font-size-h5);
+}
+
+.footer-brand .text-primary {
+  color: var(--md-primary) !important;
+}
+
+/* Footer links */
+.footer-link {
+  color: var(--md-on-surface-variant) !important;
+  text-decoration: none;
+  transition: color var(--md-transition-fast);
+  display: inline-block;
+}
+
+.footer-link:hover {
+  color: var(--md-primary) !important;
+}
+
+/* Footer headings */
+h6 {
+  color: var(--md-on-surface);
+  font-weight: var(--md-font-weight-medium);
+  letter-spacing: 0.08929em;
+  text-transform: uppercase;
+  font-size: var(--md-font-size-caption);
+}
+
+/* Disclaimer box */
+.bg-light-subtle {
+  background-color: var(--md-surface-variant) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--md-radius-medium);
+}
+
+.bg-light-subtle .text-primary {
+  color: var(--md-primary) !important;
+}
+
+/* Social links */
+a.text-muted {
+  color: var(--md-on-surface-variant) !important;
+  transition: color var(--md-transition-fast);
+}
+
+a.text-muted:hover {
+  color: var(--md-primary) !important;
+}
+

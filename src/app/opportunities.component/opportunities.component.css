@@ -1,62 +1,108 @@
-/* Typography Scales */
-.x-small { font-size: 0.75rem !important; }
-.xx-small { font-size: 0.65rem !important; }
+/* ============================================
+   OPPORTUNITIES - MATERIAL DESIGN
+   ============================================ */
 
-/* Filter Pills */
+/* Filter pills */
 .filter-pills {
-  border: 1px solid #eef2f6;
+  background-color: var(--md-surface-variant) !important;
+  padding: var(--md-spacing-1);
+  border-radius: 9999px;
+  box-shadow: var(--md-elevation-1);
 }
 
 .btn-filter {
-  color: #64748b;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
+  background-color: transparent;
+  border: none;
+  color: var(--md-on-surface-variant);
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+  transition: all var(--md-transition-base);
+  padding: var(--md-spacing-1) var(--md-spacing-3) !important;
+}
+
+.btn-filter:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: var(--md-on-surface);
 }
 
 .btn-filter.active {
-  background-color: white !important;
-  color: #0d6efd !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+  background-color: var(--md-surface) !important;
+  color: var(--md-primary) !important;
+  box-shadow: var(--md-elevation-1);
 }
 
-/* Card Styling */
+/* Opportunity cards */
 .opportunity-card {
-  border: 1px solid #f1f5f9 !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all var(--md-transition-base);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .opportunity-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.06) !important;
-  border-color: #e2e8f0 !important;
+  box-shadow: var(--md-elevation-4);
 }
 
 .type-strip {
   height: 4px;
   width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
+.type-strip.bg-primary {
+  background-color: var(--md-primary) !important;
+}
+
+.type-strip.bg-warning {
+  background-color: var(--md-status-interview) !important;
+}
+
+/* Type icon */
 .type-icon {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
 }
 
-/* Colors */
-.bg-primary-subtle { background-color: #eef2ff !important; }
-.bg-warning-subtle { background-color: #fffbeb !important; }
-.text-warning { color: #d97706 !important; }
-
-/* Spacing & Layout */
-.py-1-5 {
-  padding-top: 0.35rem !important;
-  padding-bottom: 0.35rem !important;
+.type-icon.bg-primary-subtle {
+  background-color: var(--md-status-applied-bg) !important;
+  color: var(--md-status-applied) !important;
 }
 
-.tracking-wider {
-  letter-spacing: 0.05em;
+.type-icon.bg-warning-subtle {
+  background-color: var(--md-status-interview-bg) !important;
+  color: var(--md-status-interview) !important;
 }
 
-.lh-base {
-  line-height: 1.5 !important;
+/* Badge */
+.badge.bg-primary-subtle {
+  background-color: var(--md-status-applied-bg) !important;
+  color: var(--md-status-applied) !important;
+}
+
+/* Link button */
+.btn-link {
+  color: var(--md-primary) !important;
+  text-decoration: none;
+  font-weight: var(--md-font-weight-medium);
+  transition: color var(--md-transition-fast);
+}
+
+.btn-link:hover {
+  color: var(--md-primary-variant) !important;
+  background-color: transparent !important;
+}
+
+/* Border utilities */
+.border-light-subtle {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Empty state */
+.text-light-emphasis {
+  color: var(--md-on-surface-variant) !important;
 }

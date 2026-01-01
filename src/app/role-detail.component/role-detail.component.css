@@ -1,31 +1,95 @@
-/* Helper Scales */
-.x-small { font-size: 0.75rem !important; }
-.xx-small { font-size: 0.65rem !important; }
-.tracking-tight { letter-spacing: 0.05em; }
+/* ============================================
+   ROLE DETAIL - MATERIAL DESIGN
+   ============================================ */
 
-/* List Spacing */
-.py-1-5 {
-  padding-top: 0.35rem !important;
-  padding-bottom: 0.35rem !important;
+/* Back link */
+a.text-decoration-none {
+  color: var(--md-on-surface-variant) !important;
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+  transition: color var(--md-transition-fast);
 }
 
-/* Sidebar accent */
-.border-start.border-3.border-primary {
-  border-left-width: 3px !important;
+a.text-decoration-none:hover {
+  color: var(--md-primary) !important;
 }
 
-/* Button scaling */
+/* Badge */
+.badge.bg-light {
+  background-color: var(--md-surface-variant) !important;
+  color: var(--md-on-surface-variant) !important;
+  border: none !important;
+}
+
+/* Border bottom */
+.border-bottom {
+  border-bottom-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* List group */
+.list-group-item {
+  background-color: transparent !important;
+  border: none !important;
+  padding: var(--md-spacing-2) 0;
+}
+
+.list-group-item i {
+  color: var(--md-primary) !important;
+}
+
+/* Skills box */
+.bg-light {
+  background-color: var(--md-surface-variant) !important;
+  border-left: 3px solid var(--md-primary) !important;
+  border-radius: var(--md-radius-medium);
+}
+
+.border-primary {
+  border-left-color: var(--md-primary) !important;
+}
+
+/* Skill badges */
+.badge.bg-white {
+  background-color: var(--md-surface) !important;
+  color: var(--md-on-surface) !important;
+  border: none !important;
+  box-shadow: var(--md-elevation-1);
+  font-weight: var(--md-font-weight-medium);
+}
+
+/* Border utilities */
+.border-light-subtle {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.border-top {
+  border-top-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Button */
 .btn-primary {
-  transition: all 0.2s;
-  letter-spacing: 0.2px;
+  background-color: var(--md-primary) !important;
+  color: var(--md-on-primary) !important;
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
 }
 
 .btn-primary:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
+  background-color: var(--md-primary-variant) !important;
+  box-shadow: var(--md-elevation-4);
 }
 
-/* Header reduction */
-.col-lg-7 {
-  max-width: 650px;
+/* Text colors */
+.text-primary {
+  color: var(--md-primary) !important;
+}
+
+.text-secondary {
+  color: var(--md-on-surface-variant) !important;
+}
+
+.text-muted {
+  color: var(--md-on-surface-variant) !important;
 }

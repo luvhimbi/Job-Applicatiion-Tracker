@@ -1,26 +1,79 @@
+/* ============================================
+   LEGAL - MATERIAL DESIGN
+   ============================================ */
 
-/* Styling the toggle buttons */
-.nav-pills .nav-link {
-  color: #6c757d;
-  transition: all 0.3s ease;
+/* Background */
+.min-vh-100[style*="background-color: #f8f9fa"] {
+  background-color: var(--md-background) !important;
 }
 
-.nav-pills .nav-link.active {
-  background-color: #212529 !important; /* Dark theme matching your buttons */
-  color: white !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Card */
+.card {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--md-radius-large);
+  box-shadow: var(--md-elevation-2);
 }
 
+/* Nav pills */
+.nav-pills {
+  background-color: var(--md-surface-variant) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--md-radius-medium);
+  padding: var(--md-spacing-1);
+}
+
+.nav-link {
+  color: var(--md-on-surface-variant) !important;
+  border-radius: var(--md-radius-small);
+  transition: all var(--md-transition-base);
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+}
+
+.nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: var(--md-on-surface) !important;
+}
+
+.nav-link.active {
+  background-color: var(--md-primary) !important;
+  color: var(--md-on-primary) !important;
+  box-shadow: var(--md-elevation-2);
+}
+
+/* Card footer */
+.card-footer {
+  background-color: var(--md-surface-variant) !important;
+  border-top-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.card-footer .text-primary {
+  color: var(--md-primary) !important;
+  font-weight: var(--md-font-weight-medium);
+}
+
+/* Headings */
 h4 {
-  letter-spacing: -0.3px;
+  color: var(--md-on-surface);
+  font-weight: var(--md-font-weight-medium);
 }
 
-/* Enhancing readability */
-p, li {
-  font-size: 0.85rem !important;
-  line-height: 1.8;
+/* Text */
+.text-muted {
+  color: var(--md-on-surface-variant) !important;
 }
 
-section {
-  padding-bottom: 1rem;
+.text-dark {
+  color: var(--md-on-surface) !important;
+}
+
+/* List items */
+ul li {
+  margin-bottom: var(--md-spacing-2);
+}
+
+strong {
+  font-weight: var(--md-font-weight-medium);
+  color: var(--md-on-surface);
 }

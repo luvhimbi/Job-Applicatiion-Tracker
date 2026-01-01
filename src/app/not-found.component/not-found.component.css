@@ -1,0 +1,42 @@
+/* ============================================
+   NOT FOUND - MATERIAL DESIGN
+   ============================================ */
+
+.error-code {
+  font-size: 8rem;
+  font-weight: var(--md-font-weight-light);
+  color: var(--md-on-surface-variant);
+  line-height: 1;
+  opacity: 0.3;
+}
+
+h2 {
+  color: var(--md-on-surface);
+  font-weight: var(--md-font-weight-medium);
+}
+
+/* Buttons */
+.btn-dark {
+  background-color: var(--md-on-surface) !important;
+  color: var(--md-surface) !important;
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+}
+
+.btn-dark:hover {
+  background-color: #424242 !important;
+  box-shadow: var(--md-elevation-4);
+}
+
+.btn-outline-secondary {
+  border-color: rgba(0, 0, 0, 0.23);
+  color: var(--md-on-surface);
+  background-color: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.23);
+}
+

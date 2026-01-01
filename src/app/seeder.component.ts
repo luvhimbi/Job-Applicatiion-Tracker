@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import {Opportunity, OpportunityService} from './services/opportunity.service';
+import { OpportunityService} from './services/opportunity.service';
+import {Opportunity} from './models/opportunity.model';
 
 
 @Component({

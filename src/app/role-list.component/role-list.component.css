@@ -1,73 +1,64 @@
-.lux-card {
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+/* ============================================
+   ROLE LIST - MATERIAL DESIGN
+   ============================================ */
+
+/* Badge */
+.badge.bg-light {
+  background-color: var(--md-surface-variant) !important;
+  color: var(--md-on-surface-variant) !important;
+  border: none !important;
+}
+
+/* Cards */
+.card {
+  transition: all var(--md-transition-base);
   cursor: pointer;
-}
-
-.lux-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
-}
-
-.lux-search-group {
-  background: #fff;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  border: 1px solid #eee;
-}
-
-.filter-container {
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 10px;
-  -webkit-overflow-scrolling: touch;
-}
-
-.filter-container::-webkit-scrollbar {
-  display: none;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.ls-1 { letter-spacing: 1px; }
-/* Custom Scaling Helpers */
-.x-small { font-size: 0.75rem !important; }
-.xx-small { font-size: 0.65rem !important; }
-
-/* Card Interactions */
-.transition-all {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
-  border-color: #e5e7eb !important;
+  box-shadow: var(--md-elevation-4);
+  border-color: var(--md-primary) !important;
 }
 
-.card:hover h6 {
-  color: #0d6efd !important;
+/* Industry label */
+.text-primary {
+  color: var(--md-primary) !important;
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
 }
 
-/* Typography Refinement */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+/* Border utilities */
+.border-light-subtle {
+  border-color: rgba(0, 0, 0, 0.12) !important;
 }
 
-.btn-xs {
-  padding: 0.25rem 0.75rem;
-  font-size: 0.65rem;
-  font-weight: 600;
+/* Link text */
+.text-primary.xx-small {
+  color: var(--md-primary) !important;
+  font-weight: var(--md-font-weight-medium);
+  transition: color var(--md-transition-fast);
 }
 
-.border-top {
-  border-top-color: #f8f9fa !important;
+.text-primary.xx-small:hover {
+  color: var(--md-primary-variant) !important;
+}
+
+/* Empty state */
+.text-light-emphasis {
+  color: var(--md-on-surface-variant) !important;
+}
+
+/* Buttons */
+.btn-outline-primary {
+  border-color: var(--md-primary);
+  color: var(--md-primary);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: rgba(25, 118, 210, 0.08);
+  border-color: var(--md-primary);
 }

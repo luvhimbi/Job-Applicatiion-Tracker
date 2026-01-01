@@ -1,8 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import {AsyncPipe, CommonModule} from '@angular/common';
-import Swal from 'sweetalert2'; // 👈 Import SweetAlert2
+import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -20,60 +19,42 @@ export class NavbarComponent {
   public authService = inject(AuthService);
   private router = inject(Router);
 
+  // --- TOAST STATE SIGNALS ---
+  showLogoutConfirm = signal<boolean>(false);
+  showLogoutSuccess = signal<boolean>(false);
+
   /**
-   * 🚪 Logout with SweetAlert2 Confirmation
+   * 🚪 Trigger the confirmation toast at the top
    */
-  async logout() {
-    Swal.fire({
-      title: 'Sign Out?',
-      text: 'Are you sure you want to end your session?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#212529', // Matching your dark button theme
-      cancelButtonColor: '#f8f9fa',
-      confirmButtonText: 'Yes, Sign Out',
-      cancelButtonText: 'Stay logged in',
-      reverseButtons: true,
-      customClass: {
-        popup: 'rounded-4 shadow-lg border-0',
-        confirmButton: 'btn btn-dark px-4 py-2 small fw-bold rounded-2 ms-2',
-        cancelButton: 'btn btn-light px-4 py-2 small fw-bold rounded-2 text-muted'
-      },
-      buttonsStyling: false
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        this.performLogout();
-      }
-    });
+  logout() {
+    this.showLogoutConfirm.set(true);
+    // Auto-hide the confirmation after 6 seconds if ignored
+    setTimeout(() => this.showLogoutConfirm.set(false), 6000);
   }
 
-  private async performLogout() {
+  /**
+   * ✅ Perform the actual logout
+   */
+  async confirmLogout() {
     try {
+      this.showLogoutConfirm.set(false);
       await this.authService.logout();
 
-      // Optional: Show a quick "Success" toast
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1500,
-        timerProgressBar: true
-      });
+      // Show success toast briefly at the top before navigating
+      this.showLogoutSuccess.set(true);
 
-      await Toast.fire({
-        icon: 'success',
-        title: 'Signed out successfully'
-      });
+      setTimeout(() => {
+        this.showLogoutSuccess.set(false);
+        this.router.navigate(['/login']);
+      }, 500);
 
-      this.router.navigate(['/login']);
     } catch (error) {
       console.error('Logout failed', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong while signing out.',
-        confirmButtonColor: '#212529'
-      });
+      this.showLogoutConfirm.set(false);
     }
+  }
+
+  cancelLogout() {
+    this.showLogoutConfirm.set(false);
   }
 }

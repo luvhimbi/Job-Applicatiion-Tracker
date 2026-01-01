@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './not-found.component.html',
   styles: [`
     .error-code {
@@ -17,4 +21,10 @@ import { RouterLink } from '@angular/router';
     }
   `]
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+  private authService = inject(AuthService);
+  
+  isLoggedIn$: Observable<boolean> = this.authService.userProfile$.pipe(
+    map(user => !!user)
+  );
+}

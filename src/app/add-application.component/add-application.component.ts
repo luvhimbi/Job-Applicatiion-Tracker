@@ -2,15 +2,19 @@ import { Component, EventEmitter, Output, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { JobApplicationService } from '../services/job-application.service';
 import { JobApplication } from '../models/job-application.model';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-add-application',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './add-application.component.html'
+  templateUrl: './add-application.component.html',
+  styles: [`
+    .form-control.ng-invalid.ng-touched { border-color: #dc3545 !important; }
+  `]
 })
 export class AddApplicationComponent implements OnInit {
   private applicationService = inject(JobApplicationService);
@@ -18,19 +22,20 @@ export class AddApplicationComponent implements OnInit {
 
   newApplication: JobApplication = this.getResetObject();
 
-  // Preset Company List for searchable dropdown
   commonCompanies: string[] = [
     'Amazon', 'Google', 'Microsoft', 'Standard Bank', 'First National Bank (FNB)',
     'Absa Group', 'Nedbank', 'Capitec', 'MTN', 'Vodacom',
     'Old Mutual', 'Sanlam', 'Discovery', 'Multichoice', 'Takealot',
-    'OfferZen', 'Entelect', 'BBD', 'Derivco', 'Capgemini', 'Accenture','Geeks4learning',
+    'OfferZen', 'Entelect', 'BBD', 'Derivco', 'Capgemini', 'Accenture', 'Geeks4learning',
     'reverside'
-  ].sort(); // Sort alphabetically
+  ].sort();
 
-  // UI States
   isLoading = true;
   isSubmitting = false;
   showInfo = false;
+
+  // Regex: Requires at least one letter, allows spaces/hyphens (prevents "123")
+  textPattern = "^(?=.*[a-zA-Z]).+$";
 
   @Output() applicationAdded = new EventEmitter<void>();
 
@@ -58,9 +63,29 @@ export class AddApplicationComponent implements OnInit {
     this.isSubmitting = true;
 
     try {
-      // Ensure the company name is trimmed and formatted nicely
-      this.newApplication.companyName = this.newApplication.companyName.trim();
+      const company = this.newApplication.companyName.trim();
+      const title = this.newApplication.jobTitle.trim();
 
+      // 1. DUPLICATION CHECK
+      const existingApps = await firstValueFrom(this.applicationService.getApplications());
+      const isDuplicate = existingApps.some(app =>
+        app.companyName.toLowerCase() === company.toLowerCase() &&
+        app.jobTitle.toLowerCase() === title.toLowerCase()
+      );
+
+      if (isDuplicate) {
+        Swal.fire({
+          title: 'Duplicate Entry',
+          text: `You already have an active application for "${title}" at ${company}.`,
+          icon: 'warning',
+          confirmButtonColor: '#212529'
+        });
+        this.isSubmitting = false;
+        return;
+      }
+
+      // 2. SAVE APPLICATION
+      this.newApplication.companyName = company;
       await this.applicationService.create(this.newApplication);
 
       const Toast = Swal.mixin({

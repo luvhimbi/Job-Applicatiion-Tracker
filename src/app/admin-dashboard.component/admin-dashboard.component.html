@@ -1,0 +1,446 @@
+<div class="admin-dashboard-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="admin-title">Admin Dashboard</h1>
+        <p class="admin-subtitle">Manage content, users, and system settings</p>
+      </div>
+      <a routerLink="/" class="btn btn-outline-primary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+      </a>
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="tab-btn" 
+              [class.active]="selectedTab() === 'overview'"
+              (click)="setTab('overview')">
+        <i class="bi bi-speedometer2 me-2"></i>Overview
+      </button>
+      <button class="tab-btn" 
+              [class.active]="selectedTab() === 'users'"
+              (click)="setTab('users')">
+        <i class="bi bi-people me-2"></i>Users
+      </button>
+      <button class="tab-btn" 
+              [class.active]="selectedTab() === 'career-paths'"
+              (click)="setTab('career-paths')">
+        <i class="bi bi-compass me-2"></i>Career Paths
+      </button>
+      <button class="tab-btn" 
+              [class.active]="selectedTab() === 'opportunities'"
+              (click)="setTab('opportunities')">
+        <i class="bi bi-mortarboard me-2"></i>Opportunities
+      </button>
+      <button class="tab-btn" 
+              [class.active]="selectedTab() === 'discovery'"
+              (click)="setTab('discovery')">
+        <i class="bi bi-search me-2"></i>Discovery
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading()" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="text-muted mt-3">Loading admin data...</p>
+  </div>
+
+  <!-- Overview Tab -->
+  <div *ngIf="!isLoading() && selectedTab() === 'overview'">
+    <div class="stats-grid mb-4">
+      <div class="stat-card stat-primary">
+        <div class="stat-icon">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ stats()?.totalUsers || 0 }}</div>
+          <div class="stat-label">Total Users</div>
+          <div class="stat-change">+{{ stats()?.recentUsers || 0 }} this week</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-success">
+        <div class="stat-icon">
+          <i class="bi bi-compass-fill"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ stats()?.totalCareerPaths || 0 }}</div>
+          <div class="stat-label">Career Paths</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-warning">
+        <div class="stat-icon">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ stats()?.totalOpportunities || 0 }}</div>
+          <div class="stat-label">Opportunities</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-info">
+        <div class="stat-icon">
+          <i class="bi bi-search-heart-fill"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value">{{ stats()?.totalJobSources || 0 }}</div>
+          <div class="stat-label">Job Sources</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="admin-card">
+          <div class="card-header">
+            <h5 class="card-title">Recent Users</h5>
+          </div>
+          <div class="card-body">
+            <div *ngIf="users$ | async as users" class="recent-list">
+              <div *ngFor="let user of users.slice(0, 5)" class="recent-item">
+                <div class="user-avatar">{{ user.displayName?.charAt(0)?.toUpperCase() || '?' }}</div>
+                <div class="user-info">
+                  <div class="user-name">{{ user.displayName || 'No Name' }}</div>
+                  <div class="user-email">{{ user.email }}</div>
+                </div>
+                <span class="user-role" [class.admin-badge]="user.role === 'admin'">
+                  {{ user.role || 'user' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Tab -->
+  <div *ngIf="!isLoading() && selectedTab() === 'users'">
+    <div class="admin-card">
+      <div class="card-header">
+        <h5 class="card-title">All Users</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users$ | async">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="user-avatar-small">{{ user.displayName?.charAt(0)?.toUpperCase() || '?' }}</div>
+                    <span class="ms-2">{{ user.displayName || 'No Name' }}</span>
+                  </div>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                  <select class="form-select form-select-sm" 
+                          [value]="user.role || 'user'"
+                          (change)="updateUserRole(user.uid, $any($event.target).value)">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </td>
+                <td>{{ formatDate(user.createdAt) }}</td>
+                <td>
+                  <button class="btn btn-sm btn-danger" 
+                          (click)="deleteUser(user.uid)"
+                          [disabled]="(currentUser$ | async)?.uid === user.uid">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Career Paths Tab -->
+  <div *ngIf="!isLoading() && selectedTab() === 'career-paths'">
+    <div class="admin-card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">Career Paths</h5>
+        <button class="btn btn-primary btn-sm" (click)="openCareerPathForm()">
+          <i class="bi bi-plus-lg me-1"></i>Add Career Path
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Industry</th>
+                <th>Salary Range</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let path of careerPaths$ | async">
+                <td>{{ path.title }}</td>
+                <td><span class="badge bg-primary-subtle text-primary">{{ path.industry }}</span></td>
+                <td>{{ path.salaryRange }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary me-2" (click)="openCareerPathForm(path)">
+                    <i class="bi bi-pencil"></i> Edit
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteCareerPath(path.id)">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Opportunities Tab -->
+  <div *ngIf="!isLoading() && selectedTab() === 'opportunities'">
+    <div class="admin-card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">Opportunities</h5>
+        <button class="btn btn-primary btn-sm" (click)="openOpportunityForm()">
+          <i class="bi bi-plus-lg me-1"></i>Add Opportunity
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Type</th>
+                <th>Window</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let opp of opportunities$ | async">
+                <td>{{ opp.title }}</td>
+                <td>{{ opp.company }}</td>
+                <td><span class="badge" [ngClass]="opp.type === 'Internship' ? 'bg-primary-subtle text-primary' : 'bg-warning-subtle text-warning'">{{ opp.type }}</span></td>
+                <td>{{ opp.window }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary me-2" (click)="openOpportunityForm(opp)">
+                    <i class="bi bi-pencil"></i> Edit
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteOpportunity(opp.id!)">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Discovery Tab -->
+  <div *ngIf="!isLoading() && selectedTab() === 'discovery'">
+    <div class="admin-card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">Job Sources</h5>
+        <button class="btn btn-primary btn-sm" (click)="openJobSourceForm()">
+          <i class="bi bi-plus-lg me-1"></i>Add Job Source
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>URL</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let source of jobSources$ | async">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <i [class]="source.icon + ' me-2'" [style.color]="source.color"></i>
+                    {{ source.name }}
+                  </div>
+                </td>
+                <td><span class="badge bg-light text-dark">{{ source.category }}</span></td>
+                <td><a [href]="source.url" target="_blank" class="text-primary">{{ source.url }}</a></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary me-2" (click)="openJobSourceForm(source)">
+                    <i class="bi bi-pencil"></i> Edit
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteJobSource(source.id || '')">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Career Path Form Modal -->
+<div *ngIf="showCareerPathForm()" class="modal-overlay" (click)="closeAllForms()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h5>{{ editingCareerPath() ? 'Edit' : 'Create' }} Career Path</h5>
+      <button class="btn-close" (click)="closeAllForms()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveCareerPath()">
+        <div class="mb-3">
+          <label class="form-label">Title *</label>
+          <input type="text" class="form-control" [(ngModel)]="careerPathForm.title" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Industry *</label>
+          <select class="form-select" [(ngModel)]="careerPathForm.industry" name="industry" required>
+            <option value="Tech">Tech</option>
+            <option value="Finance">Finance</option>
+            <option value="Retail">Retail</option>
+            <option value="Data">Data</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Salary Range *</label>
+          <input type="text" class="form-control" [(ngModel)]="careerPathForm.salaryRange" name="salaryRange" placeholder="e.g., R450k - R900k" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description *</label>
+          <textarea class="form-control" rows="3" [(ngModel)]="careerPathForm.description" name="description" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Day in Life *</label>
+          <textarea class="form-control" rows="4" [(ngModel)]="careerPathForm.dayInLife" name="dayInLife" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Skills Needed (comma-separated) *</label>
+          <input type="text" class="form-control" [value]="arrayToString(careerPathForm.skillsNeeded || [])" (input)="careerPathForm.skillsNeeded = stringToArray($any($event.target).value)" placeholder="e.g., JavaScript, React, Node.js" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Who Should Apply (comma-separated) *</label>
+          <input type="text" class="form-control" [value]="arrayToString(careerPathForm.whoShouldApply || [])" (input)="careerPathForm.whoShouldApply = stringToArray($any($event.target).value)" placeholder="e.g., Engineers, Developers" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeAllForms()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Opportunity Form Modal -->
+<div *ngIf="showOpportunityForm()" class="modal-overlay" (click)="closeAllForms()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h5>{{ editingOpportunity() ? 'Edit' : 'Create' }} Opportunity</h5>
+      <button class="btn-close" (click)="closeAllForms()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveOpportunity()">
+        <div class="mb-3">
+          <label class="form-label">Company *</label>
+          <input type="text" class="form-control" [(ngModel)]="opportunityForm.company" name="company" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Title *</label>
+          <input type="text" class="form-control" [(ngModel)]="opportunityForm.title" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Type *</label>
+          <select class="form-select" [(ngModel)]="opportunityForm.type" name="type" required>
+            <option value="Internship">Internship</option>
+            <option value="Learnership">Learnership</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description *</label>
+          <textarea class="form-control" rows="4" [(ngModel)]="opportunityForm.description" name="description" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Application Window *</label>
+          <input type="text" class="form-control" [(ngModel)]="opportunityForm.window" name="window" placeholder="e.g., Jan - Mar 2025" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Link *</label>
+          <input type="url" class="form-control" [(ngModel)]="opportunityForm.link" name="link" placeholder="https://..." required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeAllForms()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Job Source Form Modal -->
+<div *ngIf="showJobSourceForm()" class="modal-overlay" (click)="closeAllForms()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h5>{{ editingJobSource() ? 'Edit' : 'Create' }} Job Source</h5>
+      <button class="btn-close" (click)="closeAllForms()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveJobSource()">
+        <div class="mb-3">
+          <label class="form-label">Name *</label>
+          <input type="text" class="form-control" [(ngModel)]="jobSourceForm.name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description *</label>
+          <textarea class="form-control" rows="3" [(ngModel)]="jobSourceForm.description" name="description" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">URL *</label>
+          <input type="url" class="form-control" [(ngModel)]="jobSourceForm.url" name="url" placeholder="https://..." required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Icon (Bootstrap Icon class) *</label>
+          <input type="text" class="form-control" [(ngModel)]="jobSourceForm.icon" name="icon" placeholder="e.g., bi-linkedin" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Category *</label>
+          <select class="form-select" [(ngModel)]="jobSourceForm.category" name="category" required>
+            <option value="General">General</option>
+            <option value="Tech">Tech</option>
+            <option value="Remote">Remote</option>
+            <option value="Design">Design</option>
+            <option value="Finance">Finance</option>
+            <option value="Health">Health</option>
+            <option value="Retail">Retail</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Color (Hex) *</label>
+          <input type="color" class="form-control form-control-color" [(ngModel)]="jobSourceForm.color" name="color" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeAllForms()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

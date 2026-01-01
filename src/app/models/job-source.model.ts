@@ -1,5 +1,6 @@
 // src/app/models/job-source.model.ts
 export interface JobSource {
+  id?: string;
   name: string;
   description: string;
   url: string;

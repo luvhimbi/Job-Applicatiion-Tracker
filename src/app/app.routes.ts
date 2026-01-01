@@ -15,6 +15,8 @@ import {LegalComponent} from './legal.component/legal.component';
 import {OpportunitiesComponent} from './opportunities.component/opportunities.component';
 import {SeederComponent} from './seeder.component';
 import {AuthActionComponent} from './auth-action.component/auth-action-component';
+import {AdminDashboardComponent} from './admin-dashboard.component/admin-dashboard.component';
+import {AdminGuard} from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -39,6 +41,8 @@ export const routes: Routes = [
     title: 'Legal - JobTracker'
   },
   { path: 'auth-action', component: AuthActionComponent },
+  // Admin Routes
+  { path: 'admin', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   // Utility (Database Seeder - remove in production)
   { path: 'admin/seed', component: SeederComponent },
   { path: '**', component: NotFoundComponent }

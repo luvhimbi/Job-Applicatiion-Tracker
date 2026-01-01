@@ -11,7 +11,7 @@
       <a routerLink="/" class="btn btn-dark px-4 py-2 fw-bold">
         Back to Dashboard
       </a>
-      <a routerLink="/login" class="btn btn-outline-secondary px-4 py-2">
+      <a *ngIf="!(isLoggedIn$ | async)" routerLink="/login" class="btn btn-outline-secondary px-4 py-2">
         Sign In
       </a>
     </div>

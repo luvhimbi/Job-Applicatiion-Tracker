@@ -1,0 +1,208 @@
+/* ============================================
+   EXTERNAL LINK MODAL - MATERIAL DESIGN
+   ============================================ */
+
+.external-link-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: var(--md-spacing-4);
+  animation: fadeIn var(--md-transition-base);
+}
+
+.external-link-modal {
+  background-color: var(--md-surface);
+  border-radius: var(--md-radius-large);
+  box-shadow: var(--md-elevation-8);
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: scaleIn var(--md-transition-base);
+}
+
+.modal-header {
+  padding: var(--md-spacing-6) var(--md-spacing-6) var(--md-spacing-4);
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.modal-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--md-spacing-3);
+  background: linear-gradient(135deg, var(--md-primary) 0%, var(--md-primary-variant) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--md-on-primary);
+  font-size: 1.5rem;
+  box-shadow: var(--md-elevation-4);
+}
+
+.modal-title {
+  font-size: var(--md-font-size-h5);
+  font-weight: var(--md-font-weight-medium);
+  color: var(--md-on-surface);
+  margin: 0;
+}
+
+.modal-body {
+  padding: var(--md-spacing-6);
+}
+
+.modal-description {
+  font-size: var(--md-font-size-body);
+  color: var(--md-on-surface-variant);
+  line-height: 1.6;
+  margin: 0 0 var(--md-spacing-4) 0;
+  text-align: center;
+}
+
+.url-preview {
+  background-color: var(--md-surface-variant);
+  border-radius: var(--md-radius-medium);
+  padding: var(--md-spacing-3);
+  margin-bottom: var(--md-spacing-4);
+  display: flex;
+  align-items: center;
+  gap: var(--md-spacing-2);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.url-preview i {
+  color: var(--md-primary);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.url-text {
+  font-size: var(--md-font-size-body-small);
+  color: var(--md-on-surface);
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+}
+
+.warning-box {
+  background-color: var(--md-status-interview-bg);
+  border-left: 4px solid var(--md-status-interview);
+  border-radius: var(--md-radius-small);
+  padding: var(--md-spacing-3);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--md-spacing-2);
+}
+
+.warning-box i {
+  color: var(--md-status-interview);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.warning-box span {
+  font-size: var(--md-font-size-body-small);
+  color: var(--md-status-interview);
+  line-height: 1.5;
+}
+
+.modal-footer {
+  padding: var(--md-spacing-4) var(--md-spacing-6) var(--md-spacing-6);
+  display: flex;
+  gap: var(--md-spacing-3);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.modal-footer .btn {
+  flex: 1;
+  padding: var(--md-spacing-3) var(--md-spacing-4);
+  border-radius: var(--md-radius-medium);
+  font-weight: var(--md-font-weight-medium);
+  font-size: var(--md-font-size-body-small);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--md-spacing-2);
+  transition: all var(--md-transition-base);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+}
+
+.btn-cancel {
+  background-color: var(--md-surface-variant);
+  color: var(--md-on-surface);
+  box-shadow: var(--md-elevation-1);
+}
+
+.btn-cancel:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  box-shadow: var(--md-elevation-2);
+}
+
+.btn-proceed {
+  background-color: var(--md-primary);
+  color: var(--md-on-primary);
+  box-shadow: var(--md-elevation-2);
+}
+
+.btn-proceed:hover {
+  background-color: var(--md-primary-variant);
+  box-shadow: var(--md-elevation-4);
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .external-link-modal {
+    margin: var(--md-spacing-4);
+    max-width: calc(100% - 32px);
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding-left: var(--md-spacing-4);
+    padding-right: var(--md-spacing-4);
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+}
+

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar.component/navbar.component';
 import { JobSource } from '../models/job-source.model';
 import { JobApplicationService } from '../services/job-application.service';
+import { ExternalLinkService } from '../services/external-link.service';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,6 +16,7 @@ import { map } from 'rxjs/operators';
 })
 export class JobDiscoveryComponent implements OnInit {
   private jobService = inject(JobApplicationService);
+  private externalLinkService = inject(ExternalLinkService);
 
   categories = ['All', 'General', 'Tech', 'Remote', 'Design', 'Finance', 'Health'];
 
@@ -90,7 +92,15 @@ export class JobDiscoveryComponent implements OnInit {
       this.setPage(current + 1);
     }
   }
-  openSource(url: string) {
-    window.open(url, '_blank');
+  openSource(url: string, sourceName?: string) {
+    this.externalLinkService.requestConfirmation(
+      url,
+      'Leaving JobTracker',
+      sourceName ? `You are about to visit ${sourceName} to explore job opportunities.` : 'You are about to visit an external website to explore job opportunities.'
+    ).subscribe(proceed => {
+      if (proceed && url) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    });
   }
 }

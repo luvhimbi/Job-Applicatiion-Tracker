@@ -56,7 +56,9 @@
                 <span class="text-dark fw-bold" style="font-size: 0.65rem;">{{ op.window }}</span>
               </div>
             </div>
-            <a [href]="op.link" target="_blank" class="btn btn-link p-0 text-primary text-decoration-none xx-small fw-bold">
+            <a (click)="openExternalLink(op.link, op.title, $event)" 
+               href="javascript:void(0)" 
+               class="btn btn-link p-0 text-primary text-decoration-none xx-small fw-bold">
               VIEW <i class="bi bi-arrow-up-right ms-1"></i>
             </a>
           </div>

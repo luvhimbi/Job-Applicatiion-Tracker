@@ -1,95 +1,121 @@
-.resource-card {
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent !important;
+/* ============================================
+   JOB DISCOVERY - MATERIAL DESIGN
+   ============================================ */
+
+/* Search input group */
+.input-group {
+  border-radius: 9999px;
+  box-shadow: var(--md-elevation-2);
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  overflow: hidden;
+  background-color: var(--md-surface);
 }
 
-.resource-card:hover {
-  transform: translateY(-8px);
-  border-color: #dee2e6 !important;
-  box-shadow: 0 1rem 3rem rgba(0,0,0,.08) !important;
+.input-group-text {
+  background-color: var(--md-surface) !important;
+  border: none !important;
+  color: var(--md-on-surface-variant);
 }
 
-.icon-box {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.input-group .form-control {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: var(--md-surface);
 }
 
-.resource-card:hover .bi-arrow-up-right {
-  transform: translate(2px, -2px);
-  transition: transform 0.2s ease;
-}.transition-all {
-   transition: all 0.2s ease-in-out;
- }
-
-.resource-card {
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.input-group .form-control:focus {
+  box-shadow: none !important;
+  border: none !important;
 }
 
-.resource-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-}
-
-.icon-box {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* Custom Scaling Classes */
-.x-small { font-size: 0.75rem !important; }
-.xx-small { font-size: 0.65rem !important; }
-
-/* Input Styling */
-.input-group input::placeholder {
-  color: #adb5bd;
-  font-size: 0.75rem;
-}
-
-/* Card Improvements */
-.resource-card {
-  border: 1px solid #f3f4f6 !important;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.resource-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.05) !important;
-  border-color: #e5e7eb !important;
-}
-
-.resource-card:active {
-  transform: scale(0.98);
-}
-
-/* Pagination Styling */
-.page-link {
-  font-size: 0.7rem;
-  transition: background 0.2s;
-}
-
-.page-link:hover {
-  background-color: #e2e8f0 !important;
-}
-
-/* Scroll Animation for Filters */
+/* Filter buttons */
 .btn-light {
-  background-color: #f8fafc;
-  color: #64748b;
+  background-color: var(--md-surface-variant) !important;
+  color: var(--md-on-surface-variant) !important;
+  border: none !important;
+  transition: all var(--md-transition-base);
+}
+
+.btn-light:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  color: var(--md-on-surface) !important;
 }
 
 .btn-primary {
-  background-color: #2563eb;
-  border-color: #2563eb;
+  background-color: var(--md-primary) !important;
+  color: var(--md-on-primary) !important;
+  box-shadow: var(--md-elevation-2);
 }
 
-/* Ensure icons align well with small text */
-.bi {
-  vertical-align: -0.125em;
+.btn-primary:hover {
+  background-color: var(--md-primary-variant) !important;
+  box-shadow: var(--md-elevation-4);
+}
+
+/* Resource cards */
+.resource-card {
+  transition: all var(--md-transition-base);
+  cursor: pointer;
+}
+
+.resource-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--md-elevation-4);
+}
+
+.icon-box {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Badge */
+.badge.bg-light {
+  background-color: var(--md-surface-variant) !important;
+  color: var(--md-on-surface-variant) !important;
+  border: none !important;
+}
+
+/* Link text */
+.text-primary {
+  color: var(--md-primary) !important;
+  font-weight: var(--md-font-weight-medium);
+  transition: color var(--md-transition-fast);
+}
+
+.text-primary:hover {
+  color: var(--md-primary-variant) !important;
+}
+
+/* Pagination */
+.pagination {
+  gap: var(--md-spacing-1);
+}
+
+.page-link {
+  background-color: var(--md-surface-variant) !important;
+  border: none !important;
+  color: var(--md-on-surface) !important;
+  border-radius: 9999px !important;
+  padding: var(--md-spacing-1) var(--md-spacing-3);
+  transition: all var(--md-transition-base);
+}
+
+.page-link:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  color: var(--md-primary) !important;
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* Empty state */
+.text-light-emphasis {
+  color: var(--md-on-surface-variant) !important;
 }

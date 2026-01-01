@@ -1,0 +1,101 @@
+/* ============================================
+   APPLICATION EDIT - MATERIAL DESIGN
+   ============================================ */
+
+/* Form controls */
+.form-control-sm,
+.form-select-sm {
+  font-size: var(--md-font-size-body-small);
+  padding: var(--md-spacing-2);
+  border-color: rgba(0, 0, 0, 0.23);
+  border-radius: var(--md-radius-small);
+}
+
+.form-control-sm:focus,
+.form-select-sm:focus {
+  border-color: var(--md-primary);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
+}
+
+/* Labels */
+label {
+  font-size: var(--md-font-size-caption);
+  font-weight: var(--md-font-weight-medium);
+  color: var(--md-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+}
+
+/* Buttons */
+.btn-light {
+  background-color: var(--md-surface-variant) !important;
+  color: var(--md-on-surface) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.btn-light:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.btn-primary {
+  background-color: var(--md-primary) !important;
+  color: var(--md-on-primary) !important;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--md-primary-variant) !important;
+  box-shadow: var(--md-elevation-4);
+}
+
+.btn-outline-dark {
+  border-color: rgba(0, 0, 0, 0.23);
+  color: var(--md-on-surface);
+  background-color: transparent;
+}
+
+.btn-outline-dark:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Contact cards */
+.bg-light {
+  background-color: var(--md-surface-variant) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--md-radius-medium);
+}
+
+.form-control-xs {
+  font-size: var(--md-font-size-caption);
+  padding: var(--md-spacing-1) var(--md-spacing-2);
+  border-color: rgba(0, 0, 0, 0.23);
+}
+
+/* Close button */
+.btn-close {
+  opacity: 0.6;
+  transition: opacity var(--md-transition-fast);
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Card header */
+.card-header {
+  background-color: var(--md-surface) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Textarea */
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+textarea.form-control:focus {
+  border-color: var(--md-primary);
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
+}
+

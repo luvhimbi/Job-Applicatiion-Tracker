@@ -1,35 +1,66 @@
-/* Styling the Input Groups to look cohesive */
-.input-group-text {
-  border-radius: 6px 0 0 6px !important;
-  color: #6c757d;
+/* ============================================
+   ADD APPLICATION - MATERIAL DESIGN
+   ============================================ */
+
+/* Info alert styling */
+.alert {
+  border-left: 4px solid var(--md-primary) !important;
+  background-color: rgba(25, 118, 210, 0.08) !important;
+  color: var(--md-primary) !important;
 }
 
-.form-control, .form-select {
-  border-radius: 4px 6px 6px 0 !important;
-  border-color:black !important;
-  font-size: 0.85rem;
-  color: #212529;
+.alert h6 {
+  color: var(--md-primary);
+  font-weight: var(--md-font-weight-medium);
 }
 
-/* Ensure borders are visible even when not focused */
-.border-secondary-subtle {
-  border-color: #ced4da !important;
+/* Form controls */
+.form-control.bg-light-subtle,
+.form-select.bg-light-subtle {
+  background-color: var(--md-surface-variant) !important;
 }
 
-/* Background for fields to prevent "too white" look */
-.bg-light-subtle {
-  background-color: #fdfdfd !important;
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--md-surface) !important;
 }
 
-/* High-contrast focus state */
-.form-control:focus, .form-select:focus {
-  background-color: #fff !important;
-  border-color: #0d6efd !important;
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
-  outline: none;
+/* Error messages */
+.text-danger {
+  color: var(--md-error) !important;
+  font-size: var(--md-font-size-caption);
 }
 
-/* For textarea which doesn't use input-group */
-textarea.form-control {
-  border-radius: 6px !important;
+/* Card styling */
+.card {
+  border-radius: var(--md-radius-large);
+}
+
+/* Submit button */
+.btn-dark {
+  background-color: var(--md-on-surface) !important;
+  color: var(--md-surface) !important;
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+}
+
+.btn-dark:hover:not(:disabled) {
+  background-color: #424242 !important;
+  box-shadow: var(--md-elevation-4);
+}
+
+.btn-dark:disabled {
+  opacity: 0.38;
+}
+
+/* Info button */
+.btn-outline-secondary {
+  border-color: rgba(0, 0, 0, 0.23);
+  color: var(--md-on-surface-variant);
+}
+
+.btn-outline-secondary:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.23);
 }

@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 import { JobApplication, JobStatus } from '../models/job-application.model';
 import { AuthService } from '../services/auth.service';
 import { JobApplicationService } from '../services/job-application.service';
-import { NavbarComponent } from '../navbar.component/navbar.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +33,12 @@ export class DashboardComponent implements OnInit {
   // --- NEW UI STATE ---
   currentView = signal<'grid' | 'table'>('grid');
   searchQuery = signal<string>('');
+
+  // --- TOAST STATE ---
+  showConfirmToast = signal<boolean>(false);
+  showSuccessToast = signal<boolean>(false);
+  pendingDeleteId = signal<string | null>(null);
+  toastMessage = signal<string>('');
 
   ngOnInit(): void {
     this.initAuth();
@@ -75,15 +80,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  // Helper to filter applications based on search query
-  filteredApplications() {
-    const query = this.searchQuery().toLowerCase();
-    return this.applications().filter(app =>
-      app.companyName.toLowerCase().includes(query) ||
-      app.jobTitle.toLowerCase().includes(query)
-    );
-  }
-
   getStatusBadgeClass(status: string): string {
     switch (status) {
       case 'Applied': return 'bg-primary-subtle text-primary';
@@ -94,14 +90,43 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  async deleteApp(id: string) {
-    if (!confirm('Remove this application from your journey?')) return;
+  // --- TRIGGER CONFIRMATION TOAST ---
+  initiateDelete(id: string): void {
+    this.pendingDeleteId.set(id);
+    this.toastMessage.set('Are you sure you want to remove this application?');
+    this.showConfirmToast.set(true);
+
+    // Auto-hide confirmation toast after 5 seconds if no action taken
+    setTimeout(() => this.showConfirmToast.set(false), 5000);
+  }
+
+  // --- ACTUAL DELETE ACTION ---
+  async confirmDelete() {
+    const id = this.pendingDeleteId();
+    if (!id) return;
+
     try {
+      this.showConfirmToast.set(false);
       await this.applicationService.deleteApplication(id);
+
+      // Update local state
       this.applications.update(apps => apps.filter(a => a.id !== id));
+
+      // Show Success Feedback
+      this.toastMessage.set('Application successfully removed.');
+      this.showSuccessToast.set(true);
+      setTimeout(() => this.showSuccessToast.set(false), 3000);
+
+      this.pendingDeleteId.set(null);
     } catch (error) {
       console.error('Action failed:', error);
+      this.toastMessage.set('Error deleting application.');
     }
+  }
+
+  cancelDelete(): void {
+    this.showConfirmToast.set(false);
+    this.pendingDeleteId.set(null);
   }
 
   private formatFirebaseDate(date: any): Date {
@@ -111,7 +136,6 @@ export class DashboardComponent implements OnInit {
     return date || new Date();
   }
 
-  // --- NEW VIEW TOGGLE METHODS ---
   toggleView(view: 'grid' | 'table'): void {
     this.currentView.set(view);
   }

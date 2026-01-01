@@ -11,7 +11,7 @@ import {CareerRole} from '../models/carear-path.model';
 @Component({
   selector: 'app-role-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, NavbarComponent],
+  imports: [CommonModule, RouterLink],
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.css']
 })

@@ -1,0 +1,76 @@
+/* ============================================
+   PROFILE - MATERIAL DESIGN
+   ============================================ */
+
+/* Avatar styling */
+.bg-primary {
+  background-color: var(--md-primary) !important;
+  color: var(--md-on-primary) !important;
+  font-weight: var(--md-font-weight-medium);
+  box-shadow: var(--md-elevation-2);
+}
+
+/* Form controls */
+.form-control.border-light-subtle,
+.form-control.bg-light {
+  background-color: var(--md-surface-variant) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.form-control:disabled {
+  background-color: var(--md-surface-variant) !important;
+  opacity: 0.6;
+}
+
+/* Success message */
+.alert-success {
+  background-color: var(--md-status-offer-bg) !important;
+  color: var(--md-status-offer) !important;
+  border: none;
+  border-radius: var(--md-radius-medium);
+}
+
+/* Danger zone */
+.text-danger {
+  color: var(--md-error) !important;
+}
+
+.card[style*="background-color: #fff5f5"] {
+  background-color: var(--md-status-rejected-bg) !important;
+  border: 1px solid rgba(211, 47, 47, 0.12);
+}
+
+.card[style*="background-color: #fff5f5"] h6 {
+  color: var(--md-error) !important;
+}
+
+.card[style*="background-color: #fff5f5"] .btn-danger {
+  background-color: var(--md-error) !important;
+  color: var(--md-on-error) !important;
+}
+
+.card[style*="background-color: #fff5f5"] .btn-danger:hover {
+  background-color: var(--md-error-variant) !important;
+  box-shadow: var(--md-elevation-4);
+}
+
+/* Save button */
+.btn-dark {
+  background-color: var(--md-on-surface) !important;
+  color: var(--md-surface) !important;
+}
+
+.btn-dark:hover:not(:disabled) {
+  background-color: #424242 !important;
+  box-shadow: var(--md-elevation-4);
+}
+
+/* Section borders */
+.border-bottom {
+  border-bottom-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.border-light {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+

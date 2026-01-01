@@ -1,30 +1,86 @@
-/* Helper for the smallest text level */
-.x-small {
-  font-size: 0.7rem !important;
-}
+/* ============================================
+   APPLICATION DETAILS - MATERIAL DESIGN
+   ============================================ */
 
-/* Status Badge Font Reduction */
+/* Status badge */
 .status-badge {
-  font-size: 0.6rem !important;
-  letter-spacing: 0.05rem;
+  font-size: var(--md-font-size-caption);
+  font-weight: var(--md-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08929em;
+  padding: var(--md-spacing-2) var(--md-spacing-3);
+  border-radius: var(--md-radius-small);
 }
 
-/* Tightening the Note Sidebar */
-.border-start.border-4 {
-  border-left-width: 3px !important;
+.status-badge.bg-applied {
+  background-color: var(--md-status-applied-bg) !important;
+  color: var(--md-status-applied) !important;
 }
 
-/* Button font sizing */
-.btn {
-  font-size: 0.8rem;
+.status-badge.bg-interview {
+  background-color: var(--md-status-interview-bg) !important;
+  color: var(--md-status-interview) !important;
 }
 
-/* Reducing icon sizes for a cleaner look */
-.bi {
-  vertical-align: -0.125em;
+.status-badge.bg-offer {
+  background-color: var(--md-status-offer-bg) !important;
+  color: var(--md-status-offer) !important;
 }
 
-/* Ensure the layout doesn't feel too wide on desktop after shrinking text */
-.col-lg-7 {
-  max-width: 650px;
+.status-badge.bg-rejected {
+  background-color: var(--md-status-rejected-bg) !important;
+  color: var(--md-status-rejected) !important;
+}
+
+/* Card header */
+.card-header {
+  background-color: var(--md-surface) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Notes section */
+.border-primary {
+  border-left-color: var(--md-primary) !important;
+  background-color: rgba(25, 118, 210, 0.04) !important;
+}
+
+/* Contact cards */
+.border {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  border-radius: var(--md-radius-medium);
+  transition: all var(--md-transition-base);
+}
+
+.border:hover {
+  box-shadow: var(--md-elevation-2);
+  border-color: var(--md-primary) !important;
+}
+
+/* Empty state */
+.bg-light {
+  background-color: var(--md-surface-variant) !important;
+}
+
+/* Back button */
+.btn-link {
+  color: var(--md-on-surface) !important;
+  text-decoration: none;
+  font-weight: var(--md-font-weight-medium);
+  padding: var(--md-spacing-1) 0;
+}
+
+.btn-link:hover {
+  color: var(--md-primary) !important;
+  background-color: transparent !important;
+}
+
+/* Edit button */
+.btn-outline-dark {
+  border-color: rgba(0, 0, 0, 0.23);
+  color: var(--md-on-surface);
+}
+
+.btn-outline-dark:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.23);
 }

@@ -1,17 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Firestore, collection, collectionData, addDoc, query, orderBy } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import {Opportunity} from '../models/opportunity.model';
 
-export interface Opportunity {
-  id?: string;
-  company: string;
-  title: string;
-  type: 'Internship' | 'Learnership';
-  description: string;
-  window: string;
-  link: string;
-  createdAt?: any;
-}
 
 @Injectable({
   providedIn: 'root'
